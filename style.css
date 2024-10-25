@@ -89,7 +89,7 @@ input
     width: 200px;
 }
 
-button
+.register
 {
     border: 0;
     padding: 0;
@@ -101,12 +101,12 @@ button
     cursor: pointer;
 }
 
-button:hover
+.register:hover
 {
     background-color: #1a1a1a;
 }
 
-button:active
+.register:active
 {
     background-image: url("img/blooded_knife.png");
 }

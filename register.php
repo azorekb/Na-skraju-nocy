@@ -27,8 +27,8 @@ if($connected)
                     if($result)
                     {
                         $array = mysql_fetch_array($result);
-                        if($array[0] == $_POST['username']) header('location: index.php?error=1');
-                        if($array[1] == $_POST['mail']) header('location: index.php?error=2');
+                        if($array[0] == $_POST['username']) header('location: index.php?what=register&error=1');
+                        if($array[1] == $_POST['mail']) header('location: index.php?what=register&error=2');
                         
                         if(!$array)
                         {
@@ -64,7 +64,7 @@ if($connected)
             {
                 if(isset($_POST["vision"]))
                 {
-                    $result = mysql_query("select code from nsn_login where username = '" . $_SESSION['username'] . "';", $mysql);
+                    $result = mysql_query("select code,id from nsn_login where username = '" . $_SESSION['username'] . "';", $mysql);
 
                     if($result)
                     {
@@ -72,12 +72,28 @@ if($connected)
                         if($array[0] == $_POST["vision"])
                         {
                             mysql_query("update nsn_login set confirmed = 1 where username = '" . $_SESSION['username'] . "';", $mysql);
-                            header("location:  index.php?confmed=true");
+                            $_SESSION['userID'] = $result[1];
+                            header("location:  game/index.html");
                         }
                         else header("location:  index.php?action=registered&error=3");
                     }
                 }
                 else header("location: index.php");
+            } break;
+            case "login":
+            {
+                $result = mysql_query("select id from nsn_login where username = '" . $_POST['username'] . "' and password = '" . $_POST['password'] . "';", $mysql);
+
+                if($result)
+                {
+                    $array = mysql_fetch_array($result);
+                    if($array[0])
+                    {
+                        $_SESSION['userID'] = $result[0];
+                        header("location:  game/index.html");
+                    }
+                    else header("location:  index.php?action=login&error=4");
+                }
             } break;
     
             default: header("location: index.php");
