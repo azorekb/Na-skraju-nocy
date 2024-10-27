@@ -1,0 +1,117 @@
+body
+{
+    background-color: black;
+    color: #fed973;
+}
+
+.blood
+{
+    margin: -10px 0 -50px 0;
+    position: relative;
+}
+
+.blood img
+{
+    width: 150px;
+    position: absolute;
+    left: 180px;
+    top: -25px;
+}
+
+.regDiv
+{
+    width: 635px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.row
+{
+    display: flex;
+    height: 15%;
+}
+
+.cell
+{
+    margin: 5;
+}
+
+.diamond
+{
+    background-image: url('img/Perfect_Stone.png');
+    background-size: cover;
+    width: 8%;
+}
+
+.main
+{
+    width: 85%;
+    align-self: center;
+    text-align: center;
+}
+
+.main form *
+{
+    margin: 7px 0;
+}
+
+.row.center 
+{
+    height: 69%;
+}
+
+.horizontal
+{
+    width: 85%;
+    background-image: url('img/frame_v.png');
+    background-repeat: repeat-x;
+    background-position-y: center;
+    background-size: auto 20%;
+}
+
+.verticaly
+{
+    width: 8%;
+    background-image: url('img/frame_h.png');
+    background-repeat: repeat-y;
+    background-position-x: center;
+    background-size: 25% auto;
+}
+
+input 
+{
+    background-color: #333;
+    border: 0;
+    color: #fff;
+    text-align: center;
+    width: 200px;
+}
+
+.register
+{
+    border: 0;
+    padding: 0;
+    background-image: url("img/knife.png");
+    width: 200px;
+    height: 60px;
+    background-size: cover;
+    background-color: black;
+    cursor: pointer;
+}
+
+.register:hover
+{
+    background-color: #1a1a1a;
+}
+
+.register:active
+{
+    background-image: url("img/blooded_knife.png");
+}
+
+.error 
+{
+    color: red;
+}
