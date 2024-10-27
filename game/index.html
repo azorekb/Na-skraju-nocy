@@ -7,9 +7,40 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
         <script src="script/variables.js"></script>
+        <script src="script/dictionary.js"></script>
+        <script src="script/connection.js"></script>
         <script src="script/main.js"></script>
     </head>
-    <body>
-        
+    <body onload="start()">
+        <div class = 'base'><div class='main'>
+            <div class="menuBlock">
+                <div class="moneyBlock">
+                    <div class="money">
+                        <div id="coppers"></div>
+                        <div id="coppersAmount"></div>
+                    </div>
+                    <div class="money">
+                        <div id="silver"></div>
+                        <div id="silverAmount"></div>
+                    </div>
+                    <div class="money">
+                        <div id="gold"></div>
+                        <div id="goldAmount"></div>
+                    </div>
+                </div>
+                <div class="menuButtons">
+                    <div id="dragons"></div>
+                    <div id="treasury"></div>
+                    <div id="willageMap"></div>
+                    <div id="wilderness"></div>
+                </div>
+            </div>
+            <div class="mainBlock">
+                <div id="logo"><img src="../img/logo_v1.png"></div>
+                <div class="mainDiv">
+                    <img id="avatar"><p id="username"></p>
+                </div>
+            </div>
+        </div></div>
     </body>
 </html>

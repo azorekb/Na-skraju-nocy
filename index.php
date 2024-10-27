@@ -20,78 +20,81 @@
                 }
                 echo '</p>';
             }
-        ?>
-        <div class="regDiv">
-            <div class="row">
-                <div class="cell diamond"></div>
-                <div class="cell horizontal"></div>
-                <div class="cell diamond"></div>
-            </div>
-            <div class="row center">
-                <div class="cell verticaly"></div>
-                <div class="cell main">
-                    <?php
-                    if(isset($_GET['action']))
+            if(isset($_GET['action']))
+            {
+                echo '<div class="regDiv">
+                        <div class="row">
+                            <div class="cell diamond"></div>
+                            <div class="cell horizontal"></div>
+                            <div class="cell diamond"></div>
+                        </div>
+                        <div class="row center">
+                            <div class="cell verticaly"></div>
+                            <div class="cell main">';
+            
+                switch($_GET['action'])
+                {
+                    case 'register':
                     {
-                        switch($_GET['action'])
+                        echo '<form action="register.php?what=new" method="post">
+                        <label>Ja, niżej podpisany</label><br>
+                        <input type="text" placeholder="nazwa użytkownika" name="username"><br>
+                        <label>pochodzący z wioski</label><br>
+                        <input type="text" placeholder="adres e-mail" name="mail"><br>
+                        <label>uroczyście przysięgam wierność władcy Mirgrodu i  jego mieszkańcom, a także, że będę opiekować się powierzonymi mi smokami najlepiej jak potrafię.<br>Słowa swe przypieczętowuję zaś własną krwią.</label><br>
+                        <input type="password" placeholder="hasło" name="password"><br>
+                        <label>i niechaj skonam jeśli kiedykolwiek się im sprzeniewierzę i powyższą Przysięgę Krwi złamię</label><br>
+                        <button class="register"></button></form>';
+                    } break;
+                    case 'registered':
+                    {
+                        session_start();
+                        if(isset($_SESSION['username']))
                         {
-                            case 'register':
-                            {
-                                echo '<form action="register.php?what=new" method="post">
-                                <label>Ja, niżej podpisany</label><br>
-                                <input type="text" placeholder="nazwa użytkownika" name="username"><br>
-                                <label>pochodzący z wioski</label><br>
-                                <input type="text" placeholder="adres e-mail" name="mail"><br>
-                                <label>uroczyście przysięgam wierność władcy Mirgrodu i  jego mieszkańcom, a także, że będę opiekować się powierzonymi mi smokami najlepiej jak potrafię.<br>Słowa swe przypieczętowuję zaś własną krwią.</label><br>
-                                <input type="password" placeholder="hasło" name="password"><br>
-                                <label>i niechaj skonam jeśli kiedykolwiek się im sprzeniewierzę i powyższą Przysięgę Krwi złamię</label><br>
-                                <button class="register"></button></form>';
-                            } break;
-                            case 'registered':
-                            {
-                                session_start();
-                                if(isset($_SESSION['username']))
-                                {
-                                    echo "<form action='register.php?what=confirm' method='post'>
-                                    <label>Ja, niżej podpisany</label><br>
-                                    <i>{$_SESSION['username']}</i><br>
-                                    <label>pochodzący z wioski</label><br>
-                                    <i>{$_SESSION['mail']}</i><br>
-                                    <label>uroczyście przysięgam wierność władcy Mirgrodu i  jego mieszkańcom, a także, że będę opiekować się powierzonymi mi smokami najlepiej jak potrafię.<br>Słowa swe przypieczętowuję zaś własną krwią.</label><br>
-                                    <div class='blood'><img src='img/blood.png'></div><br>
-                                    <label>i niechaj skonam jeśli kiedykolwiek się im sprzeniewierzę i powyższą Przysięgę Krwi złamię</label><br>
-                                    <button class='register'></button><br>
-                                    <label>Udaj się teraz do swojej wioski i powróć, gdy otrzymasz wizję, by nam ją opowiedzieć</label><br>
-                                    <input type='text' placeholder='twoja Wizja' name='vision'></form>";
-                                }
-                            } break;
-                            case "login":
-                            {
-                                echo '<form action="register.php?what=login" method="post">
-                                    <label>Ja niżej podpisany</label><br>
-                                    <input type="text" placeholder="nazwa użytkownika" name="username"><br>
-                                    <label>pragnę powrócić do opieki nad moimi smokami</label></br>
-                                    <input type="password" placeholder="hasło" name="password"><br>
-                                    <button>wejdź</button></form>';
-                            } break;
-
-
-                            default: header("location: index.php");
+                            echo "<form action='register.php?what=confirm' method='post'>
+                            <label>Ja, niżej podpisany</label><br>
+                            <i>{$_SESSION['username']}</i><br>
+                            <label>pochodzący z wioski</label><br>
+                            <i>{$_SESSION['mail']}</i><br>
+                            <label>uroczyście przysięgam wierność władcy Mirgrodu i  jego mieszkańcom, a także, że będę opiekować się powierzonymi mi smokami najlepiej jak potrafię.<br>Słowa swe przypieczętowuję zaś własną krwią.</label><br>
+                            <div class='blood'><img src='img/blood.png'></div><br>
+                            <label>i niechaj skonam jeśli kiedykolwiek się im sprzeniewierzę i powyższą Przysięgę Krwi złamię</label><br>
+                            <button class='register'></button><br>
+                            <label>Udaj się teraz do swojej wioski i powróć, gdy otrzymasz wizję, by nam ją opowiedzieć</label><br>
+                            <input type='text' placeholder='twoja Wizja' name='vision'></form>";
                         }
-                    }
-                    else
+                    } break;
+                    case "login":
                     {
-                        header("location: index.php?action=login");
-                    }
-                    ?>
-                </div>
-                <div class="cell verticaly"></div>
-            </div>
-            <div class="row">
-                <div class="cell diamond"></div>
-                <div class="cell horizontal"></div>
-                <div class="cell diamond"></div>
-            </div>
-        </div>
+                        echo '<form action="register.php?what=login" method="post">
+                        <label>Ja niżej podpisany</label><br>
+                        <input type="text" placeholder="nazwa użytkownika" name="username"><br>
+                        <label>pragnę powrócić do opieki nad moimi smokami</label></br>
+                        <input type="password" placeholder="hasło" name="password"><br>
+                        <button>wejdź</button></form>';
+                    } break;
+                    
+                    
+                    default: header("location: index.php");
+                }
+                echo '      </div>
+                            <div class="cell verticaly"></div>
+                        </div>
+                        <div class="row">
+                        <div class="cell diamond"></div>
+                        <div class="cell horizontal"></div>
+                        <div class="cell diamond"></div>
+                    </div></div>';
+            }
+            else
+            {
+                echo '<div class = "background">
+                    <img src="img/logo_v1.png"><br>
+                    <div class = "linkButtons"><div onclick = "document.location.href = \'?action=register\'">Rejestracja</div> <div onclick = "document.location.href = \'?action=login\'">Logowanie</div> 
+                </div>';
+            }
+
+?>
+            
     </body>
 </html>

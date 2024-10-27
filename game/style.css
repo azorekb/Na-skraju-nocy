@@ -1,0 +1,104 @@
+@font-face
+{
+    font-family: NorseDownload;
+    src: url(../Norse.otf);
+}
+
+@font-face
+{
+    font-family: NorseDownloadBold;
+    src: url(../Norsebold.otf);
+}
+
+body
+{
+    background-color: #006;
+    color: #a06501;
+    margin: 0;
+}
+
+.base
+{
+    max-width: fit-content;
+    margin: 10px auto;
+}
+
+.main 
+{
+    display: flex;
+    margin: 10px;
+}
+
+.menuBlock
+{
+    margin-right: 3vh;
+}
+
+.menuButtons div
+{
+    background-image: url('../img/button.png');
+    background-size: contain;
+    padding: 2vh 3vh;
+    color: black;
+    font-family: NorseDownload;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-size: 4vh;
+    transition: opacity 0.5s linear;
+    text-align: center;
+}
+
+.menuButtons div:hover
+{
+    opacity: 0.7;
+}
+
+.moneyBlock
+{
+    margin: 10vh 1vh;
+}
+
+.money 
+{
+    display: flex;
+    font-family: NorseDownload;
+    font-size: 4vh;
+    border: 3px solid #a06501;
+    border-bottom: none;
+}
+
+.money:last-child
+{
+    border-bottom: 3px solid #a06501;
+}
+
+.money div
+{
+    flex-grow: 1;
+    margin: 0 1vh;
+}
+
+.money div:last-child
+{
+    text-align: right;
+}
+
+.mainDiv 
+{
+    margin-top: 2vh;
+    display: flex;
+    border: 2px solid;
+    padding: 1vh;
+    height: 85%;
+}
+
+#avatar
+{
+    height: 10vh;
+}
+
+#username
+{
+    margin: 0vh 1vw;
+}

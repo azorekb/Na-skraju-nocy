@@ -2,6 +2,7 @@ body
 {
     background-color: black;
     color: #fed973;
+    margin: 0;
 }
 
 .blood
@@ -114,4 +115,54 @@ input
 .error 
 {
     color: red;
+}
+
+@font-face
+{
+    font-family: NorseDownload;
+    src: url(Norse.otf);
+}
+
+@font-face
+{
+    font-family: NorseDownloadBold;
+    src: url(Norsebold.otf);
+}
+
+.background
+{
+    background-image: url('img/background.png');
+    background-size: contain;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-color: blue;
+    background-position-x: right;
+    padding: 5px;
+}
+
+.linkButtons
+{
+    display: flex;
+    margin-top: 10px;
+}
+
+.linkButtons div
+{
+    margin-right: 2vh;
+    background-image: url('img/button.png');
+    background-size: contain;
+    padding: 2vh 8vh;
+    color: black;
+    font-family: NorseDownload;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-size: 4vh;
+    transition: opacity 1s ease;
+}
+
+.linkButtons div:hover
+{
+    opacity: 0.8;
 }

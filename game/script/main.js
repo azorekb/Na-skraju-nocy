@@ -1,50 +1,33 @@
-function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
+function start()
 {
-	php_request.abort();
+	const CHANGE_IDS = ['coppers','silver','gold','dragons','treasury','willageMap','wilderness'];
+	for(let i = 0; i < CHANGE_IDS.length; i++)
+		document.getElementById(CHANGE_IDS[i]).innerHTML = TEXTS.start[i][POLISH];
 
-	php_request.onerror = function()
+	let sending_data = new FormData();
+    sending_data.append('columns', 'coppers,silver,gold,username,avatar');
+    sending_data.append('table', 'nsn_login');
+    sending_data.append('conditions', 'ID');
+    const URL = 'script/php/connect.php';
+
+	const DIVS =
+	[
+		['coppers','silver','gold','username','avatar'],
+		['coppersAmount','silverAmount','goldAmount','username','avatar'],
+		['innerHTML','innerHTML','innerHTML','innerHTML','src']
+	];
+
+	sendRequest(editValues,URL, sending_data, DIVS);
+}
+
+function editValues(_res, _divs)
+{
+	for(let i = 0; i < _divs[0].length; i++)
 	{
-		// errorsLog.innerHTML = this.status + this.statusText;
-		console.log(this.status,this.statusText);
+		switch(_divs[2][i])
+		{
+			case 'innerHTML': document.getElementById(_divs[1][i]).innerHTML = _res['res'][0][_divs[0][i]]; break;
+			case 'src': document.getElementById(_divs[1][i]).src = 'img/avatars/' + _res['res'][0][_divs[0][i]]; break;
+		}
 	}
-	php_request.onreadystatechange = function() 
-	{
-		console.log(this.readyState,this.status);
-        if(this.readyState == 4 && this.status == 200)
-		{
-			clearInterval(requestInterval);
-
-            console.log(this.responseText);
-			// errorsLog.innerHTML = '' + this.responseText;
-	        const RES = JSON.parse(this.responseText);
-			console.log(RES);
-            
-	        if(_functionData == 'giveMeResText'){_functionData = this.responseText;}
-			_onReadyFunction(RES,_functionData);
-	    }
-	};
-    
-	php_request.open("POST", _url, true);
-	php_request.send(_sendingData);
-
-	numberOfTries = 0;
-
-	requestInterval = window.setInterval(function()
-	{
-		console.log('próba numer ' + ++numberOfTries + ' - niepowodzenie');
-
-		php_request.abort();
-
-		if(numberOfTries < 3)
-		{
-			php_request.open("POST", _url, true);
-			php_request.send(_sendingData);
-		}
-		else
-		{
-			console.log('dupa z tego będzie, reset');
-			clearInterval(requestInterval);
-		}
-
-	},1000);
 }
