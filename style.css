@@ -21,8 +21,8 @@ body
 
 .regDiv
 {
-    width: 635px;
-    height: 500px;
+    width: 650px;
+    height: 525px;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -31,24 +31,24 @@ body
 .row
 {
     display: flex;
-    height: 15%;
+    height: 75px;
 }
 
 .cell
 {
-    margin: 5;
+    margin: 5px;
 }
 
 .diamond
 {
-    background-image: url('img/Perfect_Stone.png');
+    background-image: url('img/Perfect_Stone.webp');
     background-size: cover;
-    width: 8%;
+    width: 52px;
 }
 
 .main
 {
-    width: 85%;
+    width: 538px;
     align-self: center;
     text-align: center;
 }
@@ -60,25 +60,25 @@ body
 
 .row.center 
 {
-    height: 69%;
+    height: 375px;
 }
 
 .horizontal
 {
     width: 85%;
-    background-image: url('img/frame_v.png');
+    background-image: url('img/frame_v.webp');
     background-repeat: repeat-x;
     background-position-y: center;
-    background-size: auto 20%;
+    background-size: auto 12px;
 }
 
 .verticaly
 {
-    width: 8%;
-    background-image: url('img/frame_h.png');
+    width: 56px;
+    background-image: url('img/frame_h.webp');
     background-repeat: repeat-y;
     background-position-x: center;
-    background-size: 25% auto;
+    background-size: 12px auto;
 }
 
 input 
@@ -94,7 +94,7 @@ input
 {
     border: 0;
     padding: 0;
-    background-image: url("img/knife.png");
+    background-image: url("img/knife.webp");
     width: 200px;
     height: 60px;
     background-size: cover;
@@ -109,7 +109,7 @@ input
 
 .register:active
 {
-    background-image: url("img/blooded_knife.png");
+    background-image: url("img/blooded_knife.webp");
 }
 
 .error 
@@ -131,9 +131,9 @@ input
 
 .background
 {
-    background-image: url('img/background.png');
+    background-image: url('img/background.webp');
     background-size: contain;
-    height: 100vh;
+    height: 98vh;
     background-repeat: no-repeat;
     background-position-y: bottom;
     background-color: blue;
@@ -149,16 +149,16 @@ input
 
 .linkButtons div
 {
-    margin-right: 2vh;
-    background-image: url('img/button.png');
+    margin-right: 13px;
+    background-image: url('img/button.webp');
     background-size: contain;
-    padding: 2vh 8vh;
+    padding: 12px 48px;
     color: black;
     font-family: NorseDownload;
     background-position-y: center;
     background-repeat: no-repeat;
     cursor: pointer;
-    font-size: 4vh;
+    font-size: 26px;
     transition: opacity 1s ease;
 }
 

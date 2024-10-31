@@ -89,7 +89,7 @@
             else
             {
                 echo '<div class = "background">
-                    <img src="img/logo_v1.png"><br>
+                    <img src="img/logo_v1.webp"><br>
                     <div class = "linkButtons"><div onclick = "document.location.href = \'?action=register\'">Rejestracja</div> <div onclick = "document.location.href = \'?action=login\'">Logowanie</div> 
                 </div>';
             }

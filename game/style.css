@@ -31,39 +31,20 @@ body
 
 .menuBlock
 {
-    margin-right: 3vh;
-}
-
-.menuButtons div
-{
-    background-image: url('../img/button.png');
-    background-size: contain;
-    padding: 2vh 3vh;
-    color: black;
-    font-family: NorseDownload;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    font-size: 4vh;
-    transition: opacity 0.5s linear;
-    text-align: center;
-}
-
-.menuButtons div:hover
-{
-    opacity: 0.7;
+    margin-right: 20px;
 }
 
 .moneyBlock
 {
-    margin: 10vh 1vh;
+    margin: 60px 6px;
+    background-color: #000;
 }
 
 .money 
 {
     display: flex;
     font-family: NorseDownload;
-    font-size: 4vh;
+    font-size: 25px;
     border: 3px solid #a06501;
     border-bottom: none;
 }
@@ -76,7 +57,7 @@ body
 .money div
 {
     flex-grow: 1;
-    margin: 0 1vh;
+    margin: 0 3px;
 }
 
 .money div:last-child
@@ -84,21 +65,60 @@ body
     text-align: right;
 }
 
+#menuButtons div
+{
+    background-image: url('../img/button.webp');
+    background-size: contain;
+    padding: 6px 16px;
+    width: 184px;
+    height: 40px;
+    color: black;
+    font-family: NorseDownload;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-size: 25px;
+    transition: opacity 0.5s linear;
+    display: flex;
+    align-items: center;
+}
+
+#menuButtons div:hover
+{
+    opacity: 0.7;
+}
+
+#menuButtons div p
+{
+    text-align: center;
+    width: 100%;
+}
+
 .mainDiv 
 {
-    margin-top: 2vh;
-    display: flex;
     border: 2px solid;
-    padding: 1vh;
-    height: 85%;
+    height: 360px;
+}
+
+#gameWindow
+{
+    position: absolute;
+}
+
+.user
+{
+    margin-top: 12px;
+    display: flex;
+    padding: 6px;
+    position: absolute;
 }
 
 #avatar
 {
-    height: 10vh;
+    height: 60px;
 }
 
 #username
 {
-    margin: 0vh 1vw;
+    margin: 0 10px;
 }

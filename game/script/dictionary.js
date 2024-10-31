@@ -1,16 +1,24 @@
-const POLISH = 0;
-const ENGLISH = 1;
-
 const TEXTS =
 {
     start:
-    [
-        ["miedziaki", "coopers"],
-        ["srebrniki", "silver"],
-        ["złotówki", "gold"],
-        ["smoki", "dragons"],
-        ["skarbiec", "treasury"],
-        ["mapa wioski/gród", "willage map"],
-        ["dzicz", "wilderness"]
-    ]
+    {
+        money: 
+        [
+            ["miedziaki", "coppers"],
+            ["srebrniki", "silver"],
+            ["złotówki", "gold"]
+        ],
+        buttons:
+        [
+            ["smoki", "dragons"],
+            ["skarbiec", "treasury"],
+            ["gród", "castle"],
+            ["dzicz", "wilderness"]
+        ]
+    }
+}
+
+const FILES =
+{
+    wildMap: 'img/damap.webp'
 }
