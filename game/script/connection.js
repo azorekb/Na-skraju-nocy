@@ -1,10 +1,9 @@
-function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
+function sendRequest(_onReadyFunction,_url,_sendingData,_functionData = null)
 {
 	php_request.abort();
 
 	php_request.onerror = function()
 	{
-		// errorsLog.innerHTML = this.status + this.statusText;
 		console.log(this.status,this.statusText);
 	}
 	php_request.onreadystatechange = function() 
@@ -15,11 +14,10 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
 			clearInterval(requestInterval);
 
             console.log(this.responseText);
-			// errorsLog.innerHTML = '' + this.responseText;
-	        const RES = JSON.parse(this.responseText);
+	        const RES = JSON.parse(this.responseText)['res'];
 			console.log(RES);
             
-	        if(!_functionData){_functionData = this.responseText;}
+	        if(_functionData == null){_functionData = this.responseText;}
 			_onReadyFunction(RES,_functionData);
 	    }
 	};
@@ -47,4 +45,32 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
 		}
 
 	},1000);
+}
+
+function editUserValues_connect()
+{
+	let sendingData = new FormData();
+	sendingData.append('columns', 'coppers,silver,gold,username,avatar');
+	sendingData.append('table', 'nsn_login');
+	sendingData.append('conditions', 'ID');
+	
+	const DIVS =
+	[
+		['coppers','silver','gold','username','avatar'],					//0 - res columns
+		['coppersAmount','silverAmount','goldAmount','username','avatar'],	//1 - div IDs
+		['innerHTML','innerHTML','innerHTML','innerHTML','src']				//2 - what to edit
+	];
+	
+	sendRequest(editUserValues, URL_CONNECTION, sendingData, DIVS);
+}
+
+function checkTutorialStatus_connect()
+{
+	
+	let sendingData = new FormData();
+	sendingData.append('columns', 'tutorial');
+	sendingData.append('table', 'nsn_login');
+	sendingData.append('conditions', 'ID');
+		
+	sendRequest(checkTutorialStatus, URL_CONNECTION, sendingData);
 }

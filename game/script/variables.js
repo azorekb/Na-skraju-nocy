@@ -1,17 +1,14 @@
 //HTTP Request
 let php_request = new XMLHttpRequest();
-let requestInterval;
+let requestInterval = null;
 let numberOfTries = 0;
+const URL_CONNECTION = 'php/connect.php';
 
+//languages
 const POLISH = 0;
 const ENGLISH = 1;
 let currentLanguage = POLISH;
+
+//game
 let currentWindow = '';
-let mapDetails = 
-{
-    position: [0,0],
-    mousePos: [0,0],
-    mousedown: false,
-    mapSize: [1280,789],
-    windowSize: [0,0]
-}
+let tutorial = false;

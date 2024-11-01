@@ -36,7 +36,7 @@ body
 
 .moneyBlock
 {
-    margin: 60px 6px;
+    margin: 20px 6px;
     background-color: #000;
 }
 
@@ -97,12 +97,6 @@ body
 .mainDiv 
 {
     border: 2px solid;
-    height: 360px;
-}
-
-#gameWindow
-{
-    position: absolute;
 }
 
 .user
@@ -110,7 +104,6 @@ body
     margin-top: 12px;
     display: flex;
     padding: 6px;
-    position: absolute;
 }
 
 #avatar
