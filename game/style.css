@@ -10,9 +10,14 @@
     src: url(../Norsebold.otf);
 }
 
+html
+{
+    min-height: 100%;
+}
+
 body
 {
-    background-color: #006;
+    background-image: linear-gradient(#1b263b, black);
     color: #a06501;
     margin: 0;
 }
@@ -97,6 +102,7 @@ body
 .mainDiv 
 {
     border: 2px solid;
+    position: relative;
 }
 
 .user
@@ -114,4 +120,138 @@ body
 #username
 {
     margin: 0 10px;
+}
+
+.positionText
+{
+    color: #000;
+}
+
+.leftCharacter
+{
+    position: absolute;
+    left: 65px;
+	top: 200px;
+}
+
+.rightCharacter
+{
+    position: absolute;
+    left: 330px;
+	top: 200px;
+}
+
+.femBreeder
+{
+    background-image: url(img/dragon_guardian_female.webp);
+    width: 102px;
+    height: 288px;
+}
+
+.maleBreeder
+{
+    background-image: url(img/dragon_guardian_male.webp);
+    width: 124px;
+    height: 288px;
+}
+
+.dialogueBox
+{
+    width: 100%;
+    padding: 10px 30px;
+    z-index: 1;
+}
+
+.nameBox
+{
+    border: 2px solid;
+    margin: 3px;
+    width: max-content;
+    background-color: #000;
+    padding: 0px 3px 5px 3px;
+    font-size: 16px;
+    font-family: Sylfaen;
+}
+
+.textBox
+{
+    height: 190px;
+    background-color: rgba(10, 10, 50, 0.8);
+    border: 5px solid;
+    padding: 5px;
+    font-size: 19px;
+    position: relative;
+}
+
+.buttonOk
+{
+    cursor: pointer;
+    width: 37px;
+    height: 26px;
+    border: 2px solid #a06501;
+    background-color: #000;
+    padding: 0 5px;
+    margin: 10px 0;
+    color: #a06501;
+    font-size: 16px;
+    min-width: max-content;
+}
+
+.buttonNext
+{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    margin: 0;
+}
+
+.buttonDragon
+{
+    width: 140px;
+    height: 140px;
+    border: none;
+    margin-right: 4px;
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    background-size: cover;
+    color: #fff;
+    font-weight: bold;
+}
+
+button.buttonDragon:hover
+{
+    background-color: rgba(255, 213, 0, 0.4);
+}
+
+.flexbox
+{
+    display: flex;
+}
+
+.formDiv
+{
+    align-self: center;
+    text-align: center;
+    margin-left: 15px;
+}
+
+select
+{
+    width: 121px;
+    height: 23px;
+    border: 2px solid #a06501;
+    background-color: #fff;
+    background-image: url(img/arrow.webp);
+    background-size: cover;
+    appearance: none;
+}
+
+input
+{
+    width: 117px;
+    height: 19px;
+    border: 2px solid #a06501;
+    background-color: #fff;
+    padding: 0;
+    margin: 10px 0;
 }

@@ -19,7 +19,7 @@ let mapDetails =
 
 function showWindow(_what)
 {
-	if(tutorial) return;
+	if(tutorial == 1) return;
 	const gameWindow = document.getElementById('gameWindow');
 
 	gameWindow.innerHTML = '';
@@ -33,23 +33,26 @@ function showWindow(_what)
 	{
 		case 'firstAdoption':
 		{
-			tutorial = true;
+			tutorial = 1;
+			windowSettings(512, 512, FILES.breedersHall);
+			gameWindow.style.display = 'flex';
+			gameWindow.style.alignItems = 'end';
+
+			newElement('div', gameWindow, 'leftCharacter femBreeder', 'leftBreeder');
+			newElement('div', gameWindow, 'rightCharacter maleBreeder', 'rightBreeder');
+			const dialogueBox = newElement('div', gameWindow, 'dialogueBox', 'dialogueBox');
+			newElement('div', dialogueBox, 'nameBox', 'nameBox');
+			newElement('div', dialogueBox, 'textBox', 'textBox');
+
+			dialogue('firstAdoption', 0);
 		}
 		break;
 		case 'wilderness':
 		{
-			gameWindow.style.backgroundImage = 'url(' + FILES.wildMap + ')';
-			gameWindow.style.height = '370px';
-			gameWindow.style.backgroundPosition = '-600px -200px';
-			gameWindow.style.position = 'relative';
+			windowSettings(undefined, 370, FILES.wildMap, [-600,-200], 'relative');
 
-			const positionText = document.createElement('span');
-			positionText.id = 'positionText';
-			positionText.style.color = 'black';
-			gameWindow.appendChild(positionText);
-			const activeObjectDiv = document.createElement('div');
-			activeObjectDiv.id = 'activeObjectDiv';
-			gameWindow.appendChild(activeObjectDiv);
+			newElement('span', gameWindow, 'positionText', 'positionText');
+			newElement('div', gameWindow, '', 'activeObjectDiv');
 
 			gameWindow.onmousedown = function(e)
 			{
@@ -70,9 +73,9 @@ function showWindow(_what)
 			};
 			gameWindow.onmousemove = function(e)
 			{
-				const X = e.x - gameWindow.offsetLeft;
-				const Y = e.y - gameWindow.offsetTop;
-				const cursorPos = [X - gameWindow.style.backgroundPositionX.slice(0,-2), Y - gameWindow.style.backgroundPositionY.slice(0,-2)];
+				const X = e.x - gameWindow.style.backgroundPositionX.slice(0,-2) - gameWindow.offsetParent.offsetLeft;
+				const Y = e.y - gameWindow.style.backgroundPositionY.slice(0,-2) - gameWindow.offsetParent.offsetTop;
+				const cursorPos = [X, Y];
 				document.getElementById('positionText').innerHTML = Math.floor(cursorPos[0] / 1)  + '/' + Math.floor(cursorPos[1] / 1);
 
 				let objectCaught = -1;
@@ -129,3 +132,104 @@ document.addEventListener("mouseup",function(e)
 		mapDetails.mousedown = false;
 	}
 });
+
+function windowSettings(_width = 500, _height = 500, _backgroundImage = '', _backgroundPosition = [0,0], _position = '')
+{
+	const gameWindow = document.getElementById('gameWindow');
+	gameWindow.style.backgroundImage = 'url(' + _backgroundImage + ')';
+	gameWindow.style.width = _width + 'px';
+	gameWindow.style.height = _height + 'px';
+	gameWindow.style.backgroundPosition =  _backgroundPosition[0] + 'px ' + _backgroundPosition[1] + 'px';
+	gameWindow.style.position = _position;
+}
+
+function dialogue(_which, _scene)
+{
+	switch(_which)
+	{
+		case 'firstAdoption':
+			const textBox = document.getElementById('textBox');
+			textBox.innerText = TEXTS.firstAdoption.dialogue[_scene][currentLanguage] + '\n';
+			textBox.style.textAlign = _scene == 4 ? 'center' : 'left';
+			const who = TEXTS.firstAdoption.settings[_scene].who;
+			const nameBox = document.getElementById('nameBox');
+			nameBox.innerText = TEXTS.firstAdoption.names[who][currentLanguage];
+			nameBox.style.marginLeft = who ? 'auto' : '3px';
+			let isThatEnd = false; 
+			switch(TEXTS.firstAdoption.settings[_scene].button)
+			{
+				case 3: 
+					isThatEnd = true;
+				case 0:
+					const button = newElement('button', textBox, 'buttonOk buttonNext');
+					button.innerHTML = '&#8811;';
+					button.onclick = isThatEnd ? function()
+					{
+						textBox.innerHTML = '<img src = "' + FILES.loading + '">';
+						dataBaseConnect(DBC_NAMES.addFirstDragon);
+					}:
+					function()
+					{
+						dialogue('firstAdoption', _scene + 1)
+					};
+				break;
+				case 1:
+					const buttonBox = newElement('div', textBox, 'flexbox');
+					for(let i = 0; i < FILES.dragonsChoose.length; i++)
+					{
+						const button = newElement('button', buttonBox, 'buttonDragon');
+						button.style.backgroundImage = 'url(' + FILES.dragonsChoose[i] + ')';
+						button.onclick = function()
+						{
+							temporary.dragon = i;
+							temporary.element = Math.floor(Math.random() * DRAGON_RANDOM[i].length);
+							dialogue('firstAdoption', _scene + 1);
+						};
+						button.onmouseover = function(){button.innerText = TEXTS.lists.species[i][currentLanguage]}
+						button.onmouseout = function(){button.innerText = ''}
+					}
+				break;
+				case 2:
+					const daBox = newElement('div', textBox, 'flexbox');
+					const daDragon = newElement('div', daBox, 'buttonDragon');
+					daDragon.style.backgroundImage = 'url(' + FILES.dragonsChoose[temporary.dragon] + ')';
+					daDragon.style.cursor = 'auto';
+					daDragon.style.width = '160px';
+					daDragon.style.height = '160px';
+					const formDiv = newElement('div', daBox, 'formDiv');
+					const gender = newElement('select', formDiv, '', 'dragonGender');
+					const GENDER = [['samiec','male',], ['samica', 'female']];
+					for(let i = 0; i < GENDER.length; i++)
+					{
+						const option = newElement('option', gender);
+						option.innerText = GENDER[i][currentLanguage];
+						option.value = i;
+					}
+					formDiv.innerHTML += '<br>';
+					newElement('input', formDiv, '', 'dragonName');
+					formDiv.innerHTML += '<br>';
+					const ok = newElement('button', formDiv, 'buttonOk');
+					ok.innerText = 'OK';
+					ok.onclick = function()
+					{
+						temporary.gender = document.getElementById('dragonGender').value;
+						const daName = document.getElementById('dragonName').value;
+						if(daName.length >= 3 && daName.length <= 30)
+						{
+							temporary.name = daName;
+							dialogue('firstAdoption', _scene + 1);
+						}
+					}
+				break;
+				case 4:
+					document.getElementById('gameWindow').removeChild(document.getElementById('leftBreeder'));
+					const finish = newElement('button', textBox, 'buttonOk');
+					finish.innerText = TEXTS.firstAdoption.end[currentLanguage];
+					finish.onclick = function()
+					{
+						showWindow('castle');
+					};
+			}
+		break;
+	}
+}

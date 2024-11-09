@@ -6,40 +6,8 @@
         <title>Na skraju nocy (prealfa czy coś, nie wiem, ja tu tylko sprzątam)</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-        <script src="script/dictionary.js"></script>
-        <script src="script/variables.js"></script>
-        <script src="script/connection.js"></script>
-        <script src="script/main.js"></script>
-        <script src="script/windows.js"></script>
+        <script src = "script/loadJS.js"></script>
+        <script>loadJS();</script>
     </head>
-    <body onload="start()">
-        <div class = 'base'><div class='main'>
-            <div class="menuBlock">
-                <div class="user">
-                    <img id="avatar"><p id="username"></p>
-                </div>
-                <div class="moneyBlock">
-                    <div class="money">
-                        <div id="coppers"></div>
-                        <div id="coppersAmount"></div>
-                    </div>
-                    <div class="money">
-                        <div id="silver"></div>
-                        <div id="silverAmount"></div>
-                    </div>
-                    <div class="money">
-                        <div id="gold"></div>
-                        <div id="goldAmount"></div>
-                    </div>
-                </div>
-                <div id="menuButtons"></div>
-            </div>
-            <div class="mainBlock">
-                <div id="logo"><img src="../img/logo_v1.webp"></div>
-                <div class="mainDiv">
-                    <div id="gameWindow"></div>
-                </div>
-            </div>
-        </div></div>
-    </body>
+    <body onload="start()"></body>
 </html>

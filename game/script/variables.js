@@ -11,4 +11,5 @@ let currentLanguage = POLISH;
 
 //game
 let currentWindow = '';
-let tutorial = false;
+let tutorial = 0;
+let temporary = {};

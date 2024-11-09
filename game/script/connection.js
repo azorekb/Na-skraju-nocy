@@ -1,6 +1,10 @@
-function sendRequest(_onReadyFunction,_url,_sendingData,_functionData = null)
+function sendRequest(_what, _sendingData)
 {
+	const URL = 'php/connect.php';
+
 	php_request.abort();
+	if(requestInterval)
+		clearInterval(requestInterval);
 
 	php_request.onerror = function()
 	{
@@ -16,13 +20,27 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData = null)
             console.log(this.responseText);
 	        const RES = JSON.parse(this.responseText)['res'];
 			console.log(RES);
+			if(RES['error'])
+			{
+				console.log(RES['error']);
+				return;
+			}
             
-	        if(_functionData == null){_functionData = this.responseText;}
-			_onReadyFunction(RES,_functionData);
+			switch(_what)
+			{
+				case 0: 
+					editUserValues(RES);
+					checkTutorialStatus(RES);
+				break;
+				case 1:
+					tutorial = 2;
+					dialogue('firstAdoption', 6);
+				break;
+			}
 	    }
 	};
     
-	php_request.open("POST", _url, true);
+	php_request.open("POST", URL, true);
 	php_request.send(_sendingData);
 
 	numberOfTries = 0;
@@ -35,7 +53,7 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData = null)
 
 		if(numberOfTries < 3)
 		{
-			php_request.open("POST", _url, true);
+			php_request.open("POST", URL, true);
 			php_request.send(_sendingData);
 		}
 		else
@@ -47,30 +65,44 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData = null)
 	},1000);
 }
 
-function editUserValues_connect()
+const DBC_NAMES = 
 {
-	let sendingData = new FormData();
-	sendingData.append('columns', 'coppers,silver,gold,username,avatar');
-	sendingData.append('table', 'nsn_login');
-	sendingData.append('conditions', 'ID');
-	
-	const DIVS =
-	[
-		['coppers','silver','gold','username','avatar'],					//0 - res columns
-		['coppersAmount','silverAmount','goldAmount','username','avatar'],	//1 - div IDs
-		['innerHTML','innerHTML','innerHTML','innerHTML','src']				//2 - what to edit
-	];
-	
-	sendRequest(editUserValues, URL_CONNECTION, sendingData, DIVS);
+	loginFirstData: 0,
+	addFirstDragon: 1
 }
 
-function checkTutorialStatus_connect()
+function dataBaseConnect(_what)
 {
-	
+	const SENDING_DATA = 
+	{
+		target: 'target',
+		columns: 'columns',
+		table: 'table',
+		conditions: 'conditions',
+		values: 'values'
+	}
 	let sendingData = new FormData();
-	sendingData.append('columns', 'tutorial');
-	sendingData.append('table', 'nsn_login');
-	sendingData.append('conditions', 'ID');
-		
-	sendRequest(checkTutorialStatus, URL_CONNECTION, sendingData);
+	const userID = sessionStorage.getItem('userID');
+	switch(_what)
+	{
+		case 0:
+			sendingData.append(SENDING_DATA.target, 'select');
+			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, id');
+			sendingData.append(SENDING_DATA.table, 'nsn_login');
+			sendingData.append(SENDING_DATA.conditions, 'ID');
+		break;
+		case 1:
+			sendingData.append(SENDING_DATA.target, 'add\\add\\edit');
+			sendingData.append(SENDING_DATA.table, 'nsn_dragons\\nsn_items\\nsn_login');
+			sendingData.append(SENDING_DATA.columns, 'sex, name, owner, element, species\\userID, category, type, amount\\null');
+			sendingData.append(SENDING_DATA.values, 
+				temporary.gender + ',"' + temporary.name + '",' + userID + ',' + temporary.element + ',' + temporary.dragon + '\\' +
+				userID + ',' + getItemCategoryIdByName('philosopher\'s stones') + ',' + getItemTypeIdByName('regular philosopher\'s stone') + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
+				'tutorial = 1'
+			);
+			sendingData.append('conditions', 'null\\null\\id = ' + userID);
+		break;
+	}
+	
+	sendRequest(_what, sendingData);
 }
