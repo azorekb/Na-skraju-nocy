@@ -4,6 +4,8 @@ const JS_FILES =
     "script/variables.js",
     "script/connection.js",
     "script/windows.js",
+    "script/windows/wilderness.js",
+
     "script/main.js",
 ]
 
