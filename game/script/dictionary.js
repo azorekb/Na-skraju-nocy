@@ -4,15 +4,54 @@ const TEXTS =
     {
         species: 
         [
-            ['Smok','Draco'],
+            ['Smok','Dragon'],
             ['Smoczór', 'Drake'],
-            ['Wywerna', 'Wywern']
+            ['Wywerna', 'Wywern'],
+            ['Bazyliszek', 'Basilisk'],
+            ['Hydra', 'Hydra'],
+            ['Wyrm', 'Wyrm'],
+            ['Lung', 'Lung'],
+            ['Mantria', 'Mantra'],
+            ['Żmij', 'viper'],
+            ['Lewiatan', 'Leviathan'],
+            ['Ćmok', 'Mothagon'],
+            ['Kirin', 'Kirin']
+            ['Baśniosmok', 'Faerie']
         ],
         elements:
         [
             ['ogień', 'fire'],
             ['powietrze', 'air'],
-            ['ziemia', 'ground']
+            ['ziemia', 'ground'],
+            ['natura', 'nature'],
+            ['woda', 'water'],
+            ['eter', 'ether'],
+            ['śmierć', 'death'],
+            ['dusza', 'soul'],
+            ['ciało', 'body'],
+            ['umysł', 'mind'],
+            ['chaos', 'chaos'],
+            ['ład', 'order'],
+            ['glina', 'clay'],
+            ['kryształ', 'crystyal'],
+            ['magma', 'magma'],
+            ['piasek', 'sand'],
+            ['błyskawica', 'lightning'],
+            ['mrok', 'dark'],
+            ['iryzacja', 'iridescence'],
+            ['mgła', 'fog'],
+            ['lód', 'ice'],
+            ['burza', 'storm'],
+            ['metal', 'metal'],
+            ['światło', 'light'],
+            ['spaczenie', 'distortion'],
+            ['kościej', 'koshchey'],
+            ['upiór', 'phantom'],
+            ['widmo', 'spectrum'],
+            ['noc', 'night'],
+            ['zenit', 'zenith'],
+            ['brzask', 'dawn'],
+            ['zmierzch', 'dusk']
         ],
         itemsCategories:
         [
@@ -21,11 +60,40 @@ const TEXTS =
                 items: 
                 [
                     {// 0
-                        itemName: ['zwykły kamień filozoficzny', 'regular philosopher\'s stone']
-                    }
+                        itemName: ['nieudany kamień filozoficzny', 'broken philosopher\'s stone'],
+                    },
+                    {// 1
+                        itemName: ['zwykły kamień filozoficzny', 'regular philosopher\'s stone'],
+                    },
+                    {// 2
+                        itemName: ['doskonały kamień filozoficzny', 'perfect philosopher\'s stone'],
+                    },
+                    {// 3
+                        itemName: ['spaczony kamień filozoficzny', 'distorted philosopher\'s stone'],
+                    },
                 ]                    
             }
         ],
+        buildings:
+        [
+            {
+                building: ['twierdza', 'fortress'],
+                rooms:
+                [
+                    ['hala hodowców', 'breeders\' hall']
+                ],
+                img: 'img/fortress.webp'
+            },
+            {
+                building: ['akademia', 'academy'],
+                rooms:
+                [
+                    ['żłobek', 'nursery']
+                ],
+                img: 'img/academy.webp'
+            },
+            
+        ]
     },
     start:
     {
@@ -72,7 +140,38 @@ const TEXTS =
         ],
         end: ['zakończ', 'finish'],
         starterStonesAmount: 5
-    }
+    },
+    itemList:
+    {
+        dragonsEggs:
+        [
+            {
+                optionName: ['powiąż', 'connect'],
+                subOptions:
+                [
+                    {
+                        type: 'item',
+                        value: [0,1]
+                    },
+                    {
+                        type: 'item',
+                        value: [0,2]
+                    },
+                    {
+                        type: 'item',
+                        value: [0,3]
+                    },
+                ]
+            },
+        ]
+    },
+    connectionStatus:
+    {
+        successConnectDragon: ['Gratulacje, [name] stał[a] się twoim chowańcem.', 'Congrats, [name] became your familiar.'],
+        noDragons: [' jest już twoim chowańcem.', ' is already your familiar'],
+        noStone: ['Nie posiadasz danego typu Kamienia Filozofów.', 'You don\'t have the type of Philosopher\'s Stone'],
+    },
+    genderEnds: [['', 'a'], ['', '']]
 }
 
 const FILES =
@@ -108,4 +207,40 @@ function getItemTypeIdByName(_name)
             if(TEXTS.lists.itemsCategories[i].items[j].itemName[ENGLISH] == _name)
                 type = i;
     return type;
+}
+
+function getDragonElementByPolishName(_name)
+{
+    for(let i = 0; i < TEXTS.lists.elements.length; i++)
+        if(TEXTS.lists.elements[i][POLISH] == _name)
+            return i;
+    return -1;
+}
+
+function dragonsMixElements(e1, e2)
+{
+    if(e1 == e2)
+        return [e1];
+    if(e1 > e2)
+    {
+        const temp = e1;
+        e1 = e2;
+        e2 = temp;
+    }
+
+    if(e1 == 0 && e2 == 1) return [0, 1, 16, 18, 23];
+    if(e1 == 0 && e2 == 2) return [0, 2, 13, 14, 22];
+    if(e1 == 0 && e2 == 3) return [0, 3, 6, 7];
+    if(e1 == 0 && e2 == 4) return [0, 4, 17, 18, 19];
+    if(e1 == 0 && e2 == 5) return [0, 5, 7, 10, 11];
+    if(e1 == 1 && e2 == 2) return [1, 2, 15, 16];
+    if(e1 == 1 && e2 == 3) return [1, 3, 7];
+    if(e1 == 1 && e2 == 4) return [1, 4, 19, 20, 21];
+    if(e1 == 1 && e2 == 5) return [1, 5, 10, 11];
+    if(e1 == 2 && e2 == 3) return [1, 3, 8];
+    if(e1 == 2 && e2 == 4) return [2, 4, 3, 12, 13];
+    if(e1 == 2 && e2 == 5) return [2, 5, 8, 10, 11];
+    if(e1 == 3 && e2 == 4) return [4, 3, 9];
+    if(e1 == 3 && e2 == 5) return [5, 3, 7, 9, 10, 11];
+    if(e1 == 4 && e2 == 5) return [4, 5, 10, 11];
 }

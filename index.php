@@ -17,6 +17,7 @@
                     case '1': echo "Wygląda na to, że przysięga została już złożona na podane imię."; break;
                     case '2': echo "Z podanej wioski przybył już jej przedstawiciel. Niestety obowiązuje limit jednego przedstawiciela na wioskę."; break;
                     case '3': echo "Podana wizja jest niepoprawna. Wróć gdy przypomnisz sobie poprawną."; break;
+                    case '4': echo "Zbyt długa nieaktywność. Zaloguj się ponownie"; break;
                 }
                 echo '</p>';
             }
@@ -35,7 +36,6 @@
                 switch($_GET['action'])
                 {
                     case 'register':
-                    {
                         echo '<form action="register.php?what=new" method="post">
                         <label>Ja, niżej podpisany</label><br>
                         <input type="text" placeholder="nazwa użytkownika" name="username"><br>
@@ -45,9 +45,8 @@
                         <input type="password" placeholder="hasło" name="password"><br>
                         <label>i niechaj skonam jeśli kiedykolwiek się im sprzeniewierzę i powyższą Przysięgę Krwi złamię</label><br>
                         <button class="register"></button></form>';
-                    } break;
+                    break;
                     case 'registered':
-                    {
                         session_start();
                         if(isset($_SESSION['username']))
                         {
@@ -63,19 +62,18 @@
                             <label>Udaj się teraz do swojej wioski i powróć, gdy otrzymasz wizję, by nam ją opowiedzieć</label><br>
                             <input type='text' placeholder='twoja Wizja' name='vision'></form>";
                         }
-                    } break;
+                    break;
                     case "login":
-                    {
                         echo '<form action="register.php?what=login" method="post">
                         <label>Ja niżej podpisany</label><br>
                         <input type="text" placeholder="nazwa użytkownika" name="username"><br>
                         <label>pragnę powrócić do opieki nad moimi smokami</label></br>
                         <input type="password" placeholder="hasło" name="password"><br>
                         <button>wejdź</button></form>';
-                    } break;
-                    
-                    
-                    default: header("location: index.php");
+                    break;
+                    default: 
+                        session_destroy();
+                        header("location: index.php");
                 }
                 echo '      </div>
                             <div class="cell verticaly"></div>

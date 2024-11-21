@@ -1,4 +1,4 @@
-function sendRequest(_what, _sendingData)
+function sendRequest(_what, _sendingData, _info = null)
 {
 	const URL = 'php/connect.php';
 
@@ -18,14 +18,27 @@ function sendRequest(_what, _sendingData)
 			clearInterval(requestInterval);
 
             console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText)['res'];
+			const RESPONSE = JSON.parse(this.responseText);
+	        const RES = RESPONSE['res'];
 			console.log(RES);
-			if(RES['error'])
+			if(RESPONSE['error'])
 			{
-				console.log(RES['error']);
+				console.log(RESPONSE['error']);
+				switch(RESPONSE['error'])
+				{
+					case 'session ended': location.assign('http://naskrajunocy.ugu.pl/?action=login&error=4'); break;
+				}
 				return;
 			}
-            
+
+			let theText = '';
+			switch(RESPONSE['status'])
+			{
+				case 'success': theText = 'success'; break;
+				case 'no dragon': theText = _info.thename + TEXTS.connectionStatus.noDragons[currentLanguage]; break;
+				case 'no stone': theText = TEXTS.connectionStatus.noStone[currentLanguage]; break;
+			}
+
 			switch(_what)
 			{
 				case 0: 
@@ -34,9 +47,23 @@ function sendRequest(_what, _sendingData)
 				break;
 				case 1:
 					tutorial = 2;
-					dialogue('firstAdoption', 6);
+					firstAdoption_dialogue(6);
+				break;
+				case 2:
+					treasury_load(RES, _info);
+				break;
+				case 3:
+					const genderEnd = TEXTS.genderEnds[currentLanguage][_info.sex];
+					let theStatus = 0;
+					if(theText == 'success')
+					{
+						theText = TEXTS.connectionStatus.successConnectDragon[currentLanguage].replace('[name]', _info.thename).replace('[a]', genderEnd);
+						theStatus = 1;
+					}
+					showWindow('treasury', {info: theText, theStatus: theStatus});
 				break;
 			}
+				
 	    }
 	};
     
@@ -68,41 +95,69 @@ function sendRequest(_what, _sendingData)
 const DBC_NAMES = 
 {
 	loginFirstData: 0,
-	addFirstDragon: 1
+	addFirstDragon: 1,
+	listOfItems: 2,
+	connectEgg: 3
 }
 
-function dataBaseConnect(_what)
+function dataBaseConnect(_what, _div = null, _options = null)
 {
+	if(_div)
+		_div.innerHTML = '<img src = "' + FILES.loading + '">';
+
 	const SENDING_DATA = 
 	{
 		target: 'target',
 		columns: 'columns',
 		table: 'table',
 		conditions: 'conditions',
-		values: 'values'
+		values: 'values',
+		error: 'error'
+	}
+	const DB =
+	{
+		login: 'nsn_login',
+		dragons: 'nsn_dragons',
+		items: 'nsn_items'
 	}
 	let sendingData = new FormData();
 	const userID = sessionStorage.getItem('userID');
+	const stoneCategory = getItemCategoryIdByName('philosopher\'s stones');
+	const regularStone = getItemTypeIdByName('regular philosopher\'s stone');
 	switch(_what)
 	{
 		case 0:
 			sendingData.append(SENDING_DATA.target, 'select');
 			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, id');
-			sendingData.append(SENDING_DATA.table, 'nsn_login');
+			sendingData.append(SENDING_DATA.table, DB.login);
 			sendingData.append(SENDING_DATA.conditions, 'ID');
 		break;
 		case 1:
 			sendingData.append(SENDING_DATA.target, 'add\\add\\edit');
-			sendingData.append(SENDING_DATA.table, 'nsn_dragons\\nsn_items\\nsn_login');
+			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items + '\\' + DB.login);
 			sendingData.append(SENDING_DATA.columns, 'sex, name, owner, element, species\\userID, category, type, amount\\null');
 			sendingData.append(SENDING_DATA.values, 
 				temporary.gender + ',"' + temporary.name + '",' + userID + ',' + temporary.element + ',' + temporary.dragon + '\\' +
-				userID + ',' + getItemCategoryIdByName('philosopher\'s stones') + ',' + getItemTypeIdByName('regular philosopher\'s stone') + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
+				userID + ',' + stoneCategory + ',' + regularStone + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
 				'tutorial = 1'
 			);
 			sendingData.append('conditions', 'null\\null\\id = ' + userID);
 		break;
+		case 2:
+			sendingData.append(SENDING_DATA.target, 'select\\select');
+			sendingData.append(SENDING_DATA.columns, 'name, species, id, sex\\category, type, amount');
+			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items);
+			sendingData.append(SENDING_DATA.conditions, 'owner = ' + userID + ' and stone = 0\\userID = ' + userID);
+		break;
+		case 3:
+			sendingData.append(SENDING_DATA.target, 'check\\check\\edit\\edit');
+			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items + '\\' + DB.dragons + '\\' + DB.items)
+			sendingData.append(SENDING_DATA.columns, 'stone\\amount\\null\\null');
+			sendingData.append(SENDING_DATA.values, 'null\\null\\stone = ' + _options.type + '\\amount = amount - 1')
+			sendingData.append(SENDING_DATA.conditions,'id = ' + _options.id + ' and stone = 0\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type + ' and amount >= 1\\id = ' + _options.id + '\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type);
+			sendingData.append(SENDING_DATA.error, 'no dragon\\no stone\\null\\null');
+		break;
 	}
 	
-	sendRequest(_what, sendingData);
+	sendRequest(_what, sendingData, _options);
 }

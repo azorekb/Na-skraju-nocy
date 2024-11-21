@@ -5,6 +5,9 @@ const JS_FILES =
     "script/connection.js",
     "script/windows.js",
     "script/windows/wilderness.js",
+    "script/windows/firstAdoption.js",
+    "script/windows/castle.js",
+    "script/windows/treasury.js",
 
     "script/main.js",
 ]

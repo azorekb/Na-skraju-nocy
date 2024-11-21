@@ -109,7 +109,7 @@ function wilderness_mapClick()
     if(OBJECT >= 0 && wilderness_mapDetails.mapMoved == false)
     {
         const FUNCTION = wilderness_mapDetails.objects[OBJECT].function;
-        const ARGUMENTS = wilderness_mapDetails.objects[OBJECT].arguments;
+        const ARGUMENTS = wilderness_mapDetails.objects[OBJECT].functionArguments;
         FUNCTION(ARGUMENTS);
     }
 }

@@ -14,7 +14,7 @@ function start()
 		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH]);
 		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH] + 'Amount');
 	}
-	newElement('div', menuBlock, '', 'menuButtons');
+	const menuButtons = newElement('div', menuBlock, '', 'menuButtons');
 	const mainBlock = newElement('div', mainContainter, 'mainBlock');
 	newElement('img', newElement('div', mainBlock, '', 'logo')).src = FILES.logo;
 	newElement('div', newElement('div', mainBlock, 'mainDiv'), '', 'gameWindow')
@@ -24,7 +24,7 @@ function start()
 
 	for(let i = 0; i < TEXTS.start.buttons.length; i++)	//edit buttons namesfrom JSON depends on language
 	{
-		const theButton = newElement('div', document.getElementById('menuButtons'), '', TEXTS.start.buttons[i][ENGLISH]);
+		const theButton = newElement('div', menuButtons, 'image', TEXTS.start.buttons[i][ENGLISH]);
 		theButton.onclick = function(){showWindow(theButton.id)}
 		newElement('p', theButton).innerHTML = TEXTS.start.buttons[i][currentLanguage];
 	}
