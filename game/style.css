@@ -103,10 +103,38 @@ body
     position: relative;
 }
 
+/* .settingsBlock
+{
+
+} */
+
+.settingsBlock div
+{
+    height: 30px;
+    width: 50px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.settingsBlock div:hover
+{
+    background-color: #330;
+}
+
+.settings
+{
+    background-image: url('img/optionsgear.webp');
+}
+
+.post
+{
+    background-image: url('img/post_pigeon.webp');
+}
+
 .user
 {
     margin-top: 12px;
-    display: flex;
+    /* display: flex; */
     padding: 6px;
 }
 
@@ -187,11 +215,11 @@ body
 .buttonOk
 {
     cursor: pointer;
-    width: 37px;
-    height: 26px;
+    width: max-content;
+    height: max-content;
     border: 2px solid #a06501;
     background-color: #000;
-    padding: 0 5px;
+    padding: 2px 6px;
     margin: 10px 0;
     color: #a06501;
     font-size: 16px;
@@ -408,4 +436,39 @@ input
     padding: 7px;
     color: #fff;
     width: max-content;
+}
+
+.categoryContainer
+{
+    width: max-content;
+    margin: auto;
+}
+
+.category
+{
+    border: 1px solid;
+    border-left-style: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.category:hover
+{
+    background-color: #030;
+}
+
+.category:first-child
+{
+    border-left-style: solid;
+}
+
+sup
+{
+    display: block;
+    margin: -10px 0;
+}
+
+.optionsDiv 
+{
+    padding: 5px 10px;
 }

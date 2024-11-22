@@ -16,6 +16,7 @@ function showWindow(_what, _info = null)
 		case 'wilderness': wilderness_load(); break;
 		case 'castle': castle_load(); break;
 		case 'treasury': dataBaseConnect(DBC_NAMES.listOfItems, gameWindow, _info); break;
+		case 'settings': settings_load(); break;
 		case 'dragons': 
 			const table = newElement('table', gameWindow);
 			for(let i = 0; i < 10; i++)
@@ -32,7 +33,8 @@ function showWindow(_what, _info = null)
 					table.rows[i].insertCell(7).innerText = TEXTS.lists.elements[i + 30][0];
 				}
 			}
-	}
+		break;
+	} 
 }
 
 document.addEventListener("mousemove", function(e)

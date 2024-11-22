@@ -50,7 +50,7 @@ function treasury_eggClickList(e, egg)
     for(let i = 0; i < TEXTS.itemList.dragonsEggs.length; i++)
     {
         const option = newElement('div', optionsList, 'option');
-        newElement('div', option).innerText = TEXTS.itemList.dragonsEggs[i].optionName[currentLanguage];
+        newElement('div', option).innerText = TEXTS.itemList.dragonsEggs[i].optionName[userInfo.language];
         const subOptions = newElement('div', option, 'none');
         for(let j = 0; j < TEXTS.itemList.dragonsEggs[i].subOptions.length; j++)
         {

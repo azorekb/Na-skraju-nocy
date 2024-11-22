@@ -35,15 +35,18 @@ function sendRequest(_what, _sendingData, _info = null)
 			switch(RESPONSE['status'])
 			{
 				case 'success': theText = 'success'; break;
-				case 'no dragon': theText = _info.thename + TEXTS.connectionStatus.noDragons[currentLanguage]; break;
-				case 'no stone': theText = TEXTS.connectionStatus.noStone[currentLanguage]; break;
+				case 'no dragon': theText = _info.thename + TEXTS.connectionStatus.noDragons[userInfo.language]; break;
+				case 'no stone': theText = TEXTS.connectionStatus.noStone[userInfo.language]; break;
 			}
 
 			switch(_what)
 			{
 				case 0: 
-					editUserValues(RES);
-					checkTutorialStatus(RES);
+					editMoney(RES[0]);
+					changeSettings(0, RES[0]);
+					changeUserIdentify(RES[0]);
+					changeLanguage();
+					checkTutorialStatus(RES[0]);
 				break;
 				case 1:
 					tutorial = 2;
@@ -53,14 +56,20 @@ function sendRequest(_what, _sendingData, _info = null)
 					treasury_load(RES, _info);
 				break;
 				case 3:
-					const genderEnd = TEXTS.genderEnds[currentLanguage][_info.sex];
+					const genderEnd = TEXTS.genderEnds[userInfo.language][_info.sex];
 					let theStatus = 0;
 					if(theText == 'success')
 					{
-						theText = TEXTS.connectionStatus.successConnectDragon[currentLanguage].replace('[name]', _info.thename).replace('[a]', genderEnd);
+						theText = TEXTS.connectionStatus.successConnectDragon[userInfo.language].replace('[name]', _info.thename).replace('[a]', genderEnd);
 						theStatus = 1;
 					}
 					showWindow('treasury', {info: theText, theStatus: theStatus});
+				break;
+				case 4:
+					changeSettings(0, RES[0]);
+					changeUserIdentify(RES[0]);
+					changeLanguage();
+					showWindow('settings');
 				break;
 			}
 				
@@ -97,7 +106,8 @@ const DBC_NAMES =
 	loginFirstData: 0,
 	addFirstDragon: 1,
 	listOfItems: 2,
-	connectEgg: 3
+	connectEgg: 3,
+	editSettings: 4
 }
 
 function dataBaseConnect(_what, _div = null, _options = null)
@@ -128,20 +138,20 @@ function dataBaseConnect(_what, _div = null, _options = null)
 	{
 		case 0:
 			sendingData.append(SENDING_DATA.target, 'select');
-			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, id');
+			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, id, nickname, language');
 			sendingData.append(SENDING_DATA.table, DB.login);
 			sendingData.append(SENDING_DATA.conditions, 'ID');
 		break;
 		case 1:
-			sendingData.append(SENDING_DATA.target, 'add\\add\\edit');
-			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items + '\\' + DB.login);
-			sendingData.append(SENDING_DATA.columns, 'sex, name, owner, element, species\\userID, category, type, amount\\null');
-			sendingData.append(SENDING_DATA.values, 
+			sendingData.append(SENDING_DATA.target, 'chechk\\add\\add\\edit');
+			sendingData.append(SENDING_DATA.table, DB.login + '\\' + DB.dragons + '\\' + DB.items + '\\' + DB.login);
+			sendingData.append(SENDING_DATA.columns, 'tutorial\\sex, name, owner, element, species\\userID, category, type, amount\\null');
+			sendingData.append(SENDING_DATA.values,'null\\' + 
 				temporary.gender + ',"' + temporary.name + '",' + userID + ',' + temporary.element + ',' + temporary.dragon + '\\' +
 				userID + ',' + stoneCategory + ',' + regularStone + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
 				'tutorial = 1'
 			);
-			sendingData.append('conditions', 'null\\null\\id = ' + userID);
+			sendingData.append('conditions', 'id = ' + userID + ' and tutorial = 0\\null\\null\\id = ' + userID);
 		break;
 		case 2:
 			sendingData.append(SENDING_DATA.target, 'select\\select');
@@ -156,6 +166,33 @@ function dataBaseConnect(_what, _div = null, _options = null)
 			sendingData.append(SENDING_DATA.values, 'null\\null\\stone = ' + _options.type + '\\amount = amount - 1')
 			sendingData.append(SENDING_DATA.conditions,'id = ' + _options.id + ' and stone = 0\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type + ' and amount >= 1\\id = ' + _options.id + '\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type);
 			sendingData.append(SENDING_DATA.error, 'no dragon\\no stone\\null\\null');
+		break;
+		case 4:
+			sendingData.append(SENDING_DATA.target, 'edit');
+			sendingData.append(SENDING_DATA.table, DB.login);
+			let values = '';
+			console.log('_options: ' + _options);
+			console.log(TEXTS.userSettings[_options].options);
+			for(let i = 0; i < TEXTS.userSettings[_options].options.length; i++)
+			{
+				const option = TEXTS.userSettings[_options].options[i];
+				const input = document.getElementById('settings_option_' + i);
+				let optionValue;
+				switch(option.type)
+				{
+					case 'text': optionValue = '"' + input.value + '"'; break;
+					case 'checkbox': optionValue = input.checked ? 1 : 0; break;
+					default: optionValue = input.value;
+				}
+
+				if(i > 0)
+					values += ', ';
+				values += option.table + ' = ' + optionValue;
+				console.log(option.table + ' = ' + optionValue)
+			}
+			console.log('value = ' + values);
+			sendingData.append(SENDING_DATA.values, values);
+			sendingData.append(SENDING_DATA.conditions,'ID');
 		break;
 	}
 	

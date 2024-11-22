@@ -8,6 +8,7 @@ const JS_FILES =
     "script/windows/firstAdoption.js",
     "script/windows/castle.js",
     "script/windows/treasury.js",
+    "script/windows/settings.js",
 
     "script/main.js",
 ]

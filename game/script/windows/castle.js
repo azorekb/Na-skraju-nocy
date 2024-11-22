@@ -2,19 +2,18 @@ function castle_load()
 {
     windowSettings();
     const gameWindow = document.getElementById('gameWindow');
-    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.start.buttons[2][currentLanguage];
+    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.start.buttons[2][userInfo.language];
     
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
     for(let i = 0; i < TEXTS.lists.buildings.length; i++)
     {
         const building = newElement('div', placesContainer);
-        building.innerText = TEXTS.lists.buildings[i].building[currentLanguage];
+        building.innerText = TEXTS.lists.buildings[i].building[userInfo.language];
         building.onclick = function()
         {
             castle_showBuilding(i);
         }
     }
-
 }
 
 function castle_showBuilding(building)
@@ -22,7 +21,7 @@ function castle_showBuilding(building)
     showWindow();
     windowSettings();
     const gameWindow = document.getElementById('gameWindow');
-    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.lists.buildings[building].building[currentLanguage];
+    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.lists.buildings[building].building[userInfo.language];
 
     const arrows = newElement('div', gameWindow, 'flexbox');
     newElement('div', arrows, 'left arrow image').onclick = function()
@@ -44,7 +43,7 @@ function castle_showBuilding(building)
     for(let i = 0; i < TEXTS.lists.buildings[building].rooms.length; i++)
     {
         const room = newElement('div', placesContainer);
-        room.innerText = TEXTS.lists.buildings[building].rooms[i][currentLanguage];
+        room.innerText = TEXTS.lists.buildings[building].rooms[i][userInfo.language];
         room.onclick = function()
         {
             

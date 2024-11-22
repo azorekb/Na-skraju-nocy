@@ -171,7 +171,43 @@ const TEXTS =
         noDragons: [' jest już twoim chowańcem.', ' is already your familiar'],
         noStone: ['Nie posiadasz danego typu Kamienia Filozofów.', 'You don\'t have the type of Philosopher\'s Stone'],
     },
-    genderEnds: [['', 'a'], ['', '']]
+    genderEnds: [['', 'a'], ['', '']],
+    userSettings: 
+    [
+        {
+            category: ['konto', 'account'],
+            options:
+            [
+                {
+                    option: ['nazwa publiczna', 'public name'],
+                    table: 'nickname',
+                    type: 'text',
+                    limit: 100
+                },
+                {
+                    option: ['obrazek profilowy', 'profile picture'],
+                    table: 'avatar',
+                    type: 'text',
+                    hint: ['wpisz adres obraska','enter picture address']
+                },
+                {
+                    option: ['język', 'language'],
+                    table: 'language',
+                    type: 'select',
+                    values: 
+                    [
+                        ['polski', 'polski'],
+                        ['english', 'english']
+                    ]
+                }
+            ]
+        },
+        {
+            category: ['wygląd', 'view'],
+            options:[]
+        }
+    ],
+    send: ['wyślij', 'send']
 }
 
 const FILES =
@@ -180,7 +216,8 @@ const FILES =
     wildMap: 'img/damap.webp',
     breedersHall: 'img/breeders_hall.webp',
     dragonsChoose: ['img/draconis_draco_egg.webp', 'img/draconis_drake_egg.webp', 'img/draconis_wywern_egg.webp'],
-    loading: 'img/moon-phases.webp'
+    loading: 'img/moon-phases.webp',
+    defaultAvatar: 'img/avatars/763932044056199238.png'
 }
 
 const DRAGON_RANDOM = 
