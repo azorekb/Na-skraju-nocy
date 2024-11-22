@@ -11,6 +11,8 @@ const JS_FILES =
     "script/windows/settings.js",
 
     "script/main.js",
+
+    "script/test.js"
 ]
 
 function loadJS()

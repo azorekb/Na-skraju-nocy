@@ -37,6 +37,7 @@ body
 .menuBlock
 {
     margin-right: 20px;
+    width: min-content;
 }
 
 .moneyBlock
@@ -70,7 +71,7 @@ body
     text-align: right;
 }
 
-#menuButtons div
+.listButton
 {
     background-image: url('../img/button.webp');
     padding: 6px 16px;
@@ -85,16 +86,23 @@ body
     align-items: center;
 }
 
-#menuButtons div:hover
+.listButton:hover
 {
     opacity: 0.7;
     font-family: NorseDownloadBold;
 }
 
-#menuButtons div p
+.listButton p
 {
     text-align: center;
     width: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.listButton p:hover
+{
+    direction: rtl;
 }
 
 .mainDiv 
@@ -131,10 +139,15 @@ body
     background-image: url('img/post_pigeon.webp');
 }
 
+.userBox
+{
+    margin: 0 auto;
+    width: max-content;
+}
+
 .user
 {
     margin-top: 12px;
-    /* display: flex; */
     padding: 6px;
 }
 
@@ -146,6 +159,8 @@ body
 #username
 {
     margin: 0 10px;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .positionText
@@ -471,4 +486,42 @@ sup
 .optionsDiv 
 {
     padding: 5px 10px;
+}
+
+
+
+
+
+
+/* test */
+.testDiv
+{
+    margin-left: 10px;
+}
+
+.testDiv p
+{
+    text-align: center;
+}
+
+.testTable
+{
+    text-align: center;
+    background-color: #a06501;
+}
+
+.testTable tr
+{
+    background-color: black;
+}
+
+.testTable tr:hover
+{
+    background-color: #030;
+}
+
+.testTable td
+{
+    border: 1px solid;
+    max-width: 200px;
 }

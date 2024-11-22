@@ -71,6 +71,11 @@ function sendRequest(_what, _sendingData, _info = null)
 					changeLanguage();
 					showWindow('settings');
 				break;
+
+				//test
+				case 't1':
+					test_users(RES);
+				break;
 			}
 				
 	    }
@@ -193,6 +198,14 @@ function dataBaseConnect(_what, _div = null, _options = null)
 			console.log('value = ' + values);
 			sendingData.append(SENDING_DATA.values, values);
 			sendingData.append(SENDING_DATA.conditions,'ID');
+		break;
+
+		//test
+		case 't1':
+			sendingData.append(SENDING_DATA.target, 'select');
+			sendingData.append(SENDING_DATA.columns, 'username, nickname, avatar, coppers, silver, gold, language');
+			sendingData.append(SENDING_DATA.table, DB.login);
+			sendingData.append(SENDING_DATA.conditions, '1');
 		break;
 	}
 	

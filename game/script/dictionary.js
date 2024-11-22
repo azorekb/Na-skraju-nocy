@@ -1,5 +1,6 @@
 const TEXTS =
 {
+    languages: ['polski', 'english'],
     lists:
     {
         species: 
@@ -60,7 +61,7 @@ const TEXTS =
                 items: 
                 [
                     {// 0
-                        itemName: ['nieudany kamień filozoficzny', 'broken philosopher\'s stone'],
+                        itemName: ['nieudany kamień filozoficzny', 'unsuccessful philosopher\'s stone'],
                     },
                     {// 1
                         itemName: ['zwykły kamień filozoficzny', 'regular philosopher\'s stone'],
@@ -207,7 +208,7 @@ const TEXTS =
             options:[]
         }
     ],
-    send: ['wyślij', 'send']
+    send: ['wyślij', 'send'],
 }
 
 const FILES =

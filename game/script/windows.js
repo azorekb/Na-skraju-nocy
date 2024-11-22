@@ -17,23 +17,10 @@ function showWindow(_what, _info = null)
 		case 'castle': castle_load(); break;
 		case 'treasury': dataBaseConnect(DBC_NAMES.listOfItems, gameWindow, _info); break;
 		case 'settings': settings_load(); break;
-		case 'dragons': 
-			const table = newElement('table', gameWindow);
-			for(let i = 0; i < 10; i++)
-			{
-				table.insertRow(i).insertCell(0).innerText = i;
-				table.rows[i].insertCell(1).innerText = TEXTS.lists.elements[i][0];
-				table.rows[i].insertCell(2).innerText = (i + 10);
-				table.rows[i].insertCell(3).innerText = TEXTS.lists.elements[i + 10][0];
-				table.rows[i].insertCell(4).innerText = (i + 20);
-				table.rows[i].insertCell(5).innerText = TEXTS.lists.elements[i + 20][0];
-				if(i < 2)
-				{
-					table.rows[i].insertCell(6).innerText = (i + 30);
-					table.rows[i].insertCell(7).innerText = TEXTS.lists.elements[i + 30][0];
-				}
-			}
-		break;
+		// case 'dragons': break;
+		//test
+		case 'usernames\' list': dataBaseConnect('t1'); break;
+		case 'all texts and languages': test_texts(); break;
 	} 
 }
 
@@ -58,8 +45,8 @@ function windowSettings(_width = 500, _height = 500, _backgroundImage = '', _bac
 	const gameWindow = document.getElementById('gameWindow');
 	gameWindow.innerHTML = '';
 	gameWindow.style.backgroundImage = 'url(' + _backgroundImage + ')';
-	gameWindow.style.width = _width + 'px';
-	gameWindow.style.height = _height + 'px';
+	gameWindow.style.width = typeof(_width) == 'number'? _width + 'px' : _width;
+	gameWindow.style.height = typeof(_height) == 'number'? _height + 'px' : _height + 'px';
 	gameWindow.style.backgroundPosition =  _backgroundPosition[0] + 'px ' + _backgroundPosition[1] + 'px';
 	gameWindow.style.position = _position;
 }

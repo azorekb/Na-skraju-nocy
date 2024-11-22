@@ -4,13 +4,14 @@ function start()
 	const base = newElement('div', document.body, 'base');
 	const mainContainter = newElement('div', base, 'main');
 	const menuBlock = newElement('div', mainContainter, 'menuBlock');
-	const userSettings = newElement('div', menuBlock, 'flexbox');
+	const userBox = newElement('div', menuBlock);
+	const userSettings = newElement('div', userBox, 'flexbox userBox');
 	const userContainer = newElement('div', userSettings, 'user');
 	newElement('img', userContainer, '', 'avatar');
-	newElement('p', userContainer, '', 'username');
 	const settingsBlock = newElement('div', userSettings, 'settingsBlock');
 	newElement('div', settingsBlock, 'settings image').onclick = function(){showWindow('settings')};
 	newElement('div', settingsBlock, 'post image').onclick = function(){showWindow('messages')};
+	newElement('p', userBox, '', 'username');
 	
 	const moneyBlock = newElement('div', menuBlock, 'moneyBlock')
 	for(let i = 0; i < TEXTS.start.money.length; i++)
@@ -26,11 +27,22 @@ function start()
 
 	for(let i = 0; i < TEXTS.start.buttons.length; i++)
 	{
-		const theButton = newElement('div', menuButtons, 'image', TEXTS.start.buttons[i][ENGLISH]);
+		const theButton = newElement('div', menuButtons, 'image listButton', TEXTS.start.buttons[i][ENGLISH]);
 		theButton.onclick = function(){showWindow(theButton.id)}
 		newElement('p', theButton);
 	}
-	changeLanguage(); 												////edit buttons and money namesfrom JSON depends on language
+
+	//test thingies
+	const testDiv = newElement('div', mainContainter, 'testDiv');
+	newElement('p', testDiv, '', 'testTitle').innerText = test.texts.testTitle[userInfo.language];
+	for(let i = 0; i < test.texts.buttons.length; i++)
+	{
+		const theButton = newElement('div', testDiv, 'image listButton', test.texts.buttons[i][ENGLISH]);
+		theButton.onclick = function(){showWindow(theButton.id)}
+		newElement('p', theButton);
+	}
+
+	changeLanguage(); 												//edit buttons and money namesfrom JSON depends on language
 	dataBaseConnect(DBC_NAMES.loginFirstData);						//proccess tutorial if not done
 }
 
@@ -40,6 +52,11 @@ function changeLanguage()
 		document.getElementById(TEXTS.start.money[i][ENGLISH]).innerHTML = TEXTS.start.money[i][userInfo.language];
 	for(let i = 0; i < TEXTS.start.buttons.length; i++)
 		document.getElementById(TEXTS.start.buttons[i][ENGLISH]).childNodes[0].innerText = TEXTS.start.buttons[i][userInfo.language];
+
+	//test
+	document.getElementById('testTitle').innerText = test.texts.testTitle[userInfo.language];
+	for(let i = 0; i < test.texts.buttons.length; i++)
+		document.getElementById(test.texts.buttons[i][ENGLISH]).childNodes[0].innerText = test.texts.buttons[i][userInfo.language];
 }
 
 function changeUserIdentify(res)
