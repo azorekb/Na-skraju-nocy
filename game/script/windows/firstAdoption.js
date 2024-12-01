@@ -53,7 +53,7 @@ function firstAdoption_dialogue(_scene)
 					temporary.element = Math.floor(Math.random() * DRAGON_RANDOM[i].length);
 					firstAdoption_dialogue(_scene + 1);
 				};
-				button.onmouseover = function(){button.innerText = TEXTS.lists.species[i][userInfo.language]}
+				button.onmouseover = function(){button.innerText = TEXTS.lists.species[i].thename[userInfo.language]}
 				button.onmouseout = function(){button.innerText = ''}
 			}
 		break;

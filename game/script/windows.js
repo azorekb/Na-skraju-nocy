@@ -14,12 +14,12 @@ function showWindow(_what, _info = null)
 	{
 		case 'firstAdoption': firstAdoption_load(); break;
 		case 'wilderness': wilderness_load(); break;
-		case 'castle': castle_load(); break;
+		case 'town': castle_load(); break;
 		case 'treasury': dataBaseConnect(DBC_NAMES.listOfItems, gameWindow, _info); break;
 		case 'settings': settings_load(); break;
-		// case 'dragons': break;
+		case 'dragons': dataBaseConnect(DBC_NAMES.listOfDragons, gameWindow); break;
 		//test
-		case 'usernames\' list': dataBaseConnect('t1'); break;
+		case 'usernames\' list': dataBaseConnect('t1', gameWindow); break;
 		case 'all texts and languages': test_texts(); break;
 	} 
 }

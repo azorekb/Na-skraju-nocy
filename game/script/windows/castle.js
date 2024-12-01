@@ -7,7 +7,7 @@ function castle_load()
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
     for(let i = 0; i < TEXTS.lists.buildings.length; i++)
     {
-        const building = newElement('div', placesContainer);
+        const building = newElement('div', placesContainer, 'place');
         building.innerText = TEXTS.lists.buildings[i].building[userInfo.language];
         building.onclick = function()
         {
@@ -42,7 +42,7 @@ function castle_showBuilding(building)
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
     for(let i = 0; i < TEXTS.lists.buildings[building].rooms.length; i++)
     {
-        const room = newElement('div', placesContainer);
+        const room = newElement('div', placesContainer, 'place');
         room.innerText = TEXTS.lists.buildings[building].rooms[i][userInfo.language];
         room.onclick = function()
         {

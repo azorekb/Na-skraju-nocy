@@ -5,54 +5,185 @@ const TEXTS =
     {
         species: 
         [
-            ['Smok','Dragon'],
-            ['Smoczór', 'Drake'],
-            ['Wywerna', 'Wywern'],
-            ['Bazyliszek', 'Basilisk'],
-            ['Hydra', 'Hydra'],
-            ['Wyrm', 'Wyrm'],
-            ['Lung', 'Lung'],
-            ['Mantria', 'Mantra'],
-            ['Żmij', 'viper'],
-            ['Lewiatan', 'Leviathan'],
-            ['Ćmok', 'Mothagon'],
-            ['Kirin', 'Kirin']
-            ['Baśniosmok', 'Faerie']
+            {
+                thename: ['Smok Właściwy','Proper Dragon'],
+                stats: [5, 0, 5, -2, 0, -8, 5, 0],
+            },
+            {
+                thename: ['Smoczór', 'Drake'],
+                stats: [5, 10, 0, -5, 0, -10, 5, 0],
+            },
+            {
+                thename: ['Wywerna', 'Wywern'],
+                stats: [0, -5, 5, 3, 0, 2, 0, 0],
+            },
+            {
+                thename: ['Bazyliszek', 'Basilisk'],
+            },
+            {
+                thename: ['Hydra', 'Hydra'],
+            },
+            {
+                thename: ['Wyrm', 'Wyrm'],
+            },
+            {
+                thename: ['Lung', 'Lung'],
+            },
+            {
+                thename: ['Mantria', 'Mantra'],
+            },
+            {
+                thename: ['Żmij', 'Zmey'],
+            },
+            {
+                thename: ['Lewiatan', 'Leviathan'],
+            },
+            {
+                thename: ['Ćmok', 'Mothagon'],
+            },
+            {
+                thename: ['Kirin', 'Kirin'],
+            },
+            {
+                thename: ['Baśniosmok', 'Faerie'],
+            },
         ],
         elements:
         [
-            ['ogień', 'fire'],
-            ['powietrze', 'air'],
-            ['ziemia', 'ground'],
-            ['natura', 'nature'],
-            ['woda', 'water'],
-            ['eter', 'ether'],
-            ['śmierć', 'death'],
-            ['dusza', 'soul'],
-            ['ciało', 'body'],
-            ['umysł', 'mind'],
-            ['chaos', 'chaos'],
-            ['ład', 'order'],
-            ['glina', 'clay'],
-            ['kryształ', 'crystyal'],
-            ['magma', 'magma'],
-            ['piasek', 'sand'],
-            ['błyskawica', 'lightning'],
-            ['mrok', 'dark'],
-            ['iryzacja', 'iridescence'],
-            ['mgła', 'fog'],
-            ['lód', 'ice'],
-            ['burza', 'storm'],
-            ['metal', 'metal'],
-            ['światło', 'light'],
-            ['spaczenie', 'distortion'],
-            ['kościej', 'koshchey'],
-            ['upiór', 'phantom'],
-            ['widmo', 'spectrum'],
-            ['noc', 'night'],
-            ['zenit', 'zenith'],
-            ['brzask', 'dawn'],
-            ['zmierzch', 'dusk']
+            {
+                thename: ['ogień', 'fire'],
+                symbol: '&#9651;',
+                stats: [0, 0, 0, 5, 0, 0, 3, 0]
+            },
+            {
+                thename: ['powietrze', 'air'],
+                symbol: '<s>&#9651;</s>', //'&#128769;'
+                stats:[-10, 0, 15, 0, 3, 0, 0, 0]
+            },
+            {
+                thename: ['ziemia', 'earth'],
+                symbol: '<s>&#9947;</s>', //'&#128771;'
+                stats: [3, 15, -10, 0, 0, 0, 0, 0]
+            },
+            {
+                thename: ['natura', 'nature'],
+                symbol: '&#10753;',
+                stats: [0, -5, 0, 0, 0, 0, 10, 3]
+            },
+            {
+                thename: ['woda', 'water'],
+                symbol: '&#9947;',
+                stats: [0, 0, 3, 0, 0, 5, 0, 0]
+            },
+            {
+                thename: ['eter', 'ether'],
+                symbol: '&#9775;',
+                stats: [1, 1, 1, 1, 1, 1, 1, 1]
+            },
+            {
+                thename: ['śmierć', 'death'],
+                symbol: ''
+            },
+            {
+                thename: ['dusza', 'soul'],
+                symbol: ''
+            },
+            {
+                thename: ['ciało', 'body'],
+                symbol: ''
+            },
+            {
+                thename: ['umysł', 'mind'],
+                symbol: ''
+            },
+            {
+                thename: ['chaos', 'chaos'],
+                symbol: ''
+            },
+            {
+                thename: ['ład', 'order'],
+                symbol: ''
+            },
+            {
+                thename: ['glina', 'clay'],
+                symbol: ''
+            },
+            {
+                thename: ['kryształ', 'crystyal'],
+                symbol: ''
+            },
+            {
+                thename: ['magma', 'magma'],
+                symbol: ''
+            },
+            {
+                thename: ['piasek', 'sand'],
+                symbol: ''
+            },
+            {
+                thename: ['błyskawica', 'lightning'],
+                symbol: ''
+            },
+            {
+                thename: ['mrok', 'dark'],
+                symbol: ''
+            },
+            {
+                thename: ['iryzacja', 'iridescence'],
+                symbol: ''
+            },
+            {
+                thename: ['mgła', 'fog'],
+                symbol: ''
+            },
+            {
+                thename: ['lód', 'ice'],
+                symbol: ''
+            },
+            {
+                thename: ['burza', 'storm'],
+                symbol: ''
+            },
+            {
+                thename: ['metal', 'metal'],
+                symbol: ''
+            },
+            {
+                thename: ['światło', 'light'],
+                symbol: ''
+            },
+            {
+                thename: ['spaczenie', 'distortion'],
+                symbol: ''
+            },
+            {
+                thename: ['kościej', 'koshchey'],
+                symbol: ''
+            },
+            {
+                thename: ['upiór', 'ghul'],
+                symbol: ''
+            },
+            {
+                thename: ['widmo', 'spectrum'],
+                symbol: ''
+            },
+            {
+                thename: ['noc', 'night'],
+                symbol: ''
+            },
+            {
+                thename: ['zenit', 'zenith'],
+                symbol: ''
+            },
+            {
+                thename: ['brzask', 'dawn'],
+                symbol: ''
+            },
+            {
+                thename: ['zmierzch', 'dusk'],
+                symbol: ''
+            },
         ],
         itemsCategories:
         [
@@ -70,9 +201,33 @@ const TEXTS =
                         itemName: ['doskonały kamień filozoficzny', 'perfect philosopher\'s stone'],
                     },
                     {// 3
-                        itemName: ['spaczony kamień filozoficzny', 'distorted philosopher\'s stone'],
+                        itemName: ['spaczony kamień filozoficzny', 'corrupted philosopher\'s stone'],
                     },
                 ]                    
+            },
+            {// 1
+                categoryName: ['kocioły', 'cauldrons'],
+                items:
+                [
+                    {// 0
+                        itemName: ['mosiężny kocioł', 'brass cauldron'],
+                    },
+                    {// 1
+                        itemName: ['miedziany kocioł', 'copper cauldron'],
+                    },
+                    {// 2
+                        itemName: ['żelazny kocioł', 'iron cauldron'],
+                    },
+                    {// 3
+                        itemName: ['brązowy kocioł', 'bronze cauldron'],
+                    },
+                    {// 4
+                        itemName: ['srebrny kocioł', 'silver cauldron'],
+                    },
+                    {// 5
+                        itemName: ['złoty kocioł', 'gold cauldron'],
+                    },
+                ]
             }
         ],
         buildings:
@@ -81,7 +236,7 @@ const TEXTS =
                 building: ['twierdza', 'fortress'],
                 rooms:
                 [
-                    ['hala hodowców', 'breeders\' hall']
+                    ['hala hodowców', 'keepers\' hall']
                 ],
                 img: 'img/fortress.webp'
             },
@@ -108,7 +263,7 @@ const TEXTS =
         [
             ["smoki", "dragons"],
             ["skarbiec", "treasury"],
-            ["gród", "castle"],
+            ["gród", "town"],
             ["dzicz", "wilderness"]
         ],
     },
@@ -117,17 +272,17 @@ const TEXTS =
         names:
         [
             ['Smocza Piastunka', 'Dragons\' Guardian'],
-            ['Piastun Hodowców', 'Breeders\' Guardian']
+            ['Piastun Hodowców', 'Keepers\' Guardian']
         ],
         dialogue:
         [
-            ['Witaj przybyszu,\n\nWłaśnie dołączyłeś do elitarnego grona Hodowców Smoków. Po przejściu Rytuału Krwii został ci już tylko jeden krok do wykonania: wybór swego pierwszego Chowańca.', 'translating in progress...'],
-            ['Cóż to będzie?\n\nPotężny Smoczór łamiący kości swym opancerzonym ogonem? Lekka i zwrotna Wywerna pomocna w dalekiej podróży? A może Smok łączący w sobie wiele cech wyżej wymienionych smokowatych?', 'translating in progress...'],
-            ['To są smocze jaja, z pośród których możesz wybrać swojego pierwszego towarzysza:', 'translating in progress...'],
-            ['Wybierz płeć i imię swojego towarzysza:', 'translating in progress...'],
-            ['Gratuluję!\n\nPrzygarnąłeś swojego\nPierwszego Chowańca!', 'translating in progress...'],
-            ['Powodzenia Hodowco.\n\nUdam się teraz do Smoczej Akademii, aby zająć się tamtejszym Żłobkiem. Jeśli będziesz chciał przygarnąć więcej Chowańców, udaj się tam i pytaj o mnie.', 'translating in progress...'],
-            ['Zaczekaj Hodowco!\nZanim odejdziesz, możesz zadać mi parę pytań. Chętnie pomogę Ci rozeznać się w Twoich nowych możliwości jak i obowiązkach. Znam wszystkich osiadłych mieszkańców Mirgrodu oraz wiele opowieści z otaczającego nas boru. Jeśli jednak Ci się śpieszy, pamiętaj, że zawse znajdziesz mnie tutaj w Twierdzy.', 'translating in progress...']
+            ['Witaj przybyszu,\n\nWłaśnie dołączyłeś do elitarnego grona Hodowców Smoków. Po przejściu Rytuału Krwii został ci już tylko jeden krok do wykonania: wybór swego pierwszego Chowańca.', 'Welcome, Newcomer,\n\nYou have just joined the elite ranks of Dragon Keepers. After completing the Blood Ritual, there is only one step left to take: choosing your first Familiar."'],
+            ['Cóż to będzie?\n\nPotężny Smoczór łamiący kości swym opancerzonym ogonem? Lekka i zwrotna Wywerna pomocna w dalekiej podróży? A może Smok łączący w sobie wiele cech wyżej wymienionych smokowatych?', 'Who will it be?\n\nA mighty drake breaking bones with its armored tail? Light and agile Wyvern helpful on long journeys? Or maybe a dragon combining many features of the above-mentioned dragon-kins?'],
+            ['To są smocze jaja, z pośród których możesz wybrać swojego pierwszego towarzysza:', 'These are the dragon eggs from which you can choose your first companion:'],
+            ['Wybierz płeć i imię swojego towarzysza:', 'Choose your companion\'s sex and name:'],
+            ['Gratuluję!\n\nPrzygarnąłeś swojego\nPierwszego Chowańca!', 'Congratulations!\n\nYou have adopted your\nFirst Familiar!'],
+            ['Powodzenia Hodowco.\n\nUdam się teraz do Smoczej Akademii, aby zająć się tamtejszym Żłobkiem. Jeśli będziesz chciał przygarnąć więcej Chowańców, udaj się tam i pytaj o mnie.', 'Good luck, Keeper.\n\nI will now head to the Dragon Academy to tend to the Nursery there. If you wish to adopt more Familiars, head there and ask for me.'],
+            ['Zaczekaj Hodowco!\nZanim odejdziesz, możesz zadać mi parę pytań. Chętnie pomogę Ci rozeznać się w Twoich nowych możliwości jak i obowiązkach. Znam wszystkich osiadłych mieszkańców Mirgrodu oraz wiele opowieści z otaczającego nas boru. Jeśli jednak Ci się śpieszy, pamiętaj, że zawse znajdziesz mnie tutaj w Twierdzy.', 'Wait, Keeper!\n\nBefore you go, you might want to ask me a few questions. I will be happy to help you get to know your new possibilities and responsibilities. I know all the settled residents of Mirgród and many stories from the forest surrounding us. However, if you are in a hurry, remember that you will always find me here in the Fortress.']
         ],
         settings:
         [
@@ -147,7 +302,7 @@ const TEXTS =
         dragonsEggs:
         [
             {
-                optionName: ['powiąż', 'connect'],
+                optionName: ['powiąż', 'bind'],
                 subOptions:
                 [
                     {
@@ -172,7 +327,7 @@ const TEXTS =
         noDragons: [' jest już twoim chowańcem.', ' is already your familiar'],
         noStone: ['Nie posiadasz danego typu Kamienia Filozofów.', 'You don\'t have the type of Philosopher\'s Stone'],
     },
-    genderEnds: [['', 'a'], ['', '']],
+    genderEnds: [['', ''], ['a', '']],
     userSettings: 
     [
         {
@@ -209,6 +364,51 @@ const TEXTS =
         }
     ],
     send: ['wyślij', 'send'],
+    dragons:
+    {
+        title: ['smoki', 'dragons'],
+        options:
+        [
+            ['podgląd', 'preview'],
+            ['statystyki', 'statistics'],
+            ['dieta', 'diet'],
+            ['waleczność', 'prowess'],
+            ['ekwipunek', 'equipment'],
+            ['rozród', 'generation'],
+            ['smocza ramka', 'dragon frame']
+        ],
+        stats:
+        [
+            ['poziom', 'level'],
+            ['siła', 'strength'],
+            ['odporność', 'resistance'],
+            ['zwinność', 'agility'],
+            ['wzrok', 'sight'],
+            ['inteligencja', 'intelligence'],
+            ['mądrość', 'wisdom'],
+            ['upór', 'obstinacy'],
+            ['szczęście', 'luck']
+        ],
+        statsDetails:
+        [
+            ['suma', 'sum'],
+            ['dieta', 'diet'],
+            ['kamień', 'stone'],
+            ['gatunek', 'species'],
+            ['żywioł', 'element'],
+            ['szkolenie', 'training'],
+            ['ekwipunek', 'equipment']
+        ],
+        frameOptions:
+        [
+            ['podgląd', 'preview'],
+            ['statystyki', 'statistics'],
+            ['żywienie', 'nutrition'],
+            ['doświadczenie', 'expirience'],
+            ['ekwipunek', 'equipment'],
+            ['rodzina', 'family'],
+        ],
+    }
 }
 
 const FILES =

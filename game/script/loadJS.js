@@ -9,6 +9,7 @@ const JS_FILES =
     "script/windows/castle.js",
     "script/windows/treasury.js",
     "script/windows/settings.js",
+    "script/windows/dragons.js",
 
     "script/main.js",
 

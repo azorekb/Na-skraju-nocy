@@ -56,7 +56,7 @@ function sendRequest(_what, _sendingData, _info = null)
 					treasury_load(RES, _info);
 				break;
 				case 3:
-					const genderEnd = TEXTS.genderEnds[userInfo.language][_info.sex];
+					const genderEnd = TEXTS.genderEnds[_info.sex][userInfo.language];
 					let theStatus = 0;
 					if(theText == 'success')
 					{
@@ -70,6 +70,12 @@ function sendRequest(_what, _sendingData, _info = null)
 					changeUserIdentify(RES[0]);
 					changeLanguage();
 					showWindow('settings');
+				break;
+				case 5:
+					dragons_load(RES);
+				break;
+				case 6:
+					dragons_showDragon(RES[0], _info);
 				break;
 
 				//test
@@ -112,7 +118,9 @@ const DBC_NAMES =
 	addFirstDragon: 1,
 	listOfItems: 2,
 	connectEgg: 3,
-	editSettings: 4
+	editSettings: 4,
+	listOfDragons: 5,
+	specificDragon: 6,
 }
 
 function dataBaseConnect(_what, _div = null, _options = null)
@@ -176,8 +184,6 @@ function dataBaseConnect(_what, _div = null, _options = null)
 			sendingData.append(SENDING_DATA.target, 'edit');
 			sendingData.append(SENDING_DATA.table, DB.login);
 			let values = '';
-			console.log('_options: ' + _options);
-			console.log(TEXTS.userSettings[_options].options);
 			for(let i = 0; i < TEXTS.userSettings[_options].options.length; i++)
 			{
 				const option = TEXTS.userSettings[_options].options[i];
@@ -193,11 +199,27 @@ function dataBaseConnect(_what, _div = null, _options = null)
 				if(i > 0)
 					values += ', ';
 				values += option.table + ' = ' + optionValue;
-				console.log(option.table + ' = ' + optionValue)
 			}
-			console.log('value = ' + values);
 			sendingData.append(SENDING_DATA.values, values);
 			sendingData.append(SENDING_DATA.conditions,'ID');
+		break;
+		case 5:
+			sendingData.append(SENDING_DATA.target, 'select');
+			sendingData.append(SENDING_DATA.columns, 'id, name, element');
+			sendingData.append(SENDING_DATA.table, DB.dragons);
+			sendingData.append(SENDING_DATA.conditions, 'stone > 0 and owner = ' + userID);
+		break
+		case 6:
+			let stats = '';
+			for(let i = 1; i < TEXTS.dragons.stats.length; i++)
+			{
+				const theStat = TEXTS.dragons.stats[i][ENGLISH];
+				stats += ', ' + theStat + ', ' + theStat + '_train';
+			}
+			sendingData.append(SENDING_DATA.target, 'select');
+			sendingData.append(SENDING_DATA.columns, 'id, name, level, element, stadium, species, frame' + stats);
+			sendingData.append(SENDING_DATA.table, DB.dragons);
+			sendingData.append(SENDING_DATA.conditions, 'id = ' + _options);
 		break;
 
 		//test

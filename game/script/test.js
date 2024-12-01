@@ -46,12 +46,11 @@ function test_texts()
     windowSettings('max-content', 'max-content');
     gameWindow = document.getElementById('gameWindow');
     const table = newElement('table', gameWindow, 'testTable');
-    test_readTexts(TEXTS, table);
+    test_readTexts(TEXTS, table, '');
 }
 
-function test_readTexts(object, table)
+function test_readTexts(object, table, path)
 {
-    console.log(typeof(object));
     switch(typeof(object))
     {
         case 'object':
@@ -65,11 +64,11 @@ function test_readTexts(object, table)
                     {
                         row.insertCell(j).innerText = object[objs[i]][j];
                     }
+                    row.insertCell(0).innerHTML = path + objs[i];
                 }
                 else
-                    test_readTexts(object[objs[i]], table);
+                    test_readTexts(object[objs[i]], table, path + objs[i] + ' &#129170; ');
             }
         break;
     }
-    
 }

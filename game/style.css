@@ -1,12 +1,12 @@
 @font-face
 {
-    font-family: NorseDownload;
+    font-family: Norse;
     src: url(../Norse.otf);
 }
 
 @font-face
 {
-    font-family: NorseDownloadBold;
+    font-family: NorseBold;
     src: url(../Norsebold.otf);
 }
 
@@ -49,7 +49,7 @@ body
 .money 
 {
     display: flex;
-    font-family: NorseDownload;
+    font-family: Norse;
     font-size: 25px;
     border: 3px solid #a06501;
     border-bottom: none;
@@ -78,7 +78,7 @@ body
     width: 184px;
     height: 40px;
     color: black;
-    font-family: NorseDownload;
+    font-family: Norse;
     cursor: pointer;
     font-size: 25px;
     /* transition: opacity 0.5s linear; */
@@ -89,7 +89,7 @@ body
 .listButton:hover
 {
     opacity: 0.7;
-    font-family: NorseDownloadBold;
+    font-family: NorseBold;
 }
 
 .listButton p
@@ -107,8 +107,10 @@ body
 
 .mainDiv 
 {
-    border: 2px solid;
+    border: 30px solid;
     position: relative;
+    border-image: url(img/border.webp) 30/ 30px round;
+    width: max-content;
 }
 
 /* .settingsBlock
@@ -310,7 +312,7 @@ input
     color: black;
     text-align: center;
     font-size: 32px;
-    font-family: NorseDownloadBold;
+    font-family: NorseBold;
 }
 
 .bigName p
@@ -327,22 +329,29 @@ input
     justify-content: center;
 }
 
-.placesContainer div
+.placesContainer .place
 {
     text-align: center;
     font-size: 20px;
-    font-family: NorseDownload;
-    border: 3px solid #a06501;
+    font-family: Norse;
     margin: 3px 3px;
-    width: 145px;
-    padding: 5px 0;
+    cursor: pointer;
+    width: 150px;
+    padding: 7px 0;
+    background-image: url(img/buttonBorder.webp);
+    height: 24px;
+}
+
+.wildObject
+{
+    position: absolute;
     cursor: pointer;
 }
 
-.placesContainer div:hover
+.placesContainer .place:hover
 {
     background-color: #123;
-    font-family: NorseDownloadBold;
+    font-family: NorseBold;
 }
 
 .buildingImage
@@ -488,9 +497,74 @@ sup
     padding: 5px 10px;
 }
 
+.dragon
+{
+    justify-content: space-between;
+}
 
+.dragon div
+{
+    padding: 2px 13px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
 
+.dragon div:last-child
+{
+    font-size: 15px;
+}
 
+.dragonImage
+{
+    height: 150px;
+}
+
+.dragonInfo
+{
+    flex-grow: 1;
+}
+
+.dragonInfo p
+{
+    text-align: center;
+    font-family: Norse;
+    font-size: 20px;
+    margin: 5px;
+}
+
+.dragonStats
+{
+    border-spacing: 0;
+    margin: auto;
+}
+
+.dragonStats td
+{
+    color: white;
+    font-family: Norse;
+    /* border: 2px solid; */
+    padding: 2px 4px;
+    text-align: right;
+}
+
+.dragonStats td:first-child
+{
+    color: #a06501;
+    text-align: left;
+}
+
+.dragonStats tr:first-child td
+{
+    color: #a06501;
+    text-align: left;
+}
+
+.grey
+{
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1)
+}
 
 
 /* test */

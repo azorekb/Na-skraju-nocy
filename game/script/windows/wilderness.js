@@ -7,18 +7,16 @@ const wilderness_mapDetails =
     mouseMove: false,
     mapSize: [1280,789],
     windowSize: [0,0],
-    activeObject: -1,
     objects: 
     [
         {
             img: 'castle',
             position: [803,321,851,360],
             function: showWindow,
-            functionArguments: 'castle',
+            functionArguments: 'town',
             div: null
         }
     ],
-    objectCaught: -1
 }
 
 function wilderness_load()
@@ -29,13 +27,16 @@ function wilderness_load()
     for(let i = 0; i < wilderness_mapDetails.objects.length; i++)
     {
         const theObject = wilderness_mapDetails.objects[i]
-        theObject.div = newElement('div', gameWindow);
+        theObject.div = newElement('div', gameWindow, 'wildObject');
         theObject.div.style.backgroundImage = 'url(img/' + theObject.img + '.webp)';
+        theObject.div.onmouseover = function(){theObject.div.style.backgroundImage = 'url(img/' + theObject.img + '_active.webp)'}
+        theObject.div.onmouseout = function(){theObject.div.style.backgroundImage = 'url(img/' + theObject.img + '.webp)'}
+        theObject.div.onclick = function(){wilderness_mapClick(theObject)}
         wilderness_showObject(theObject);
     }
     
     gameWindow.onmousedown = function(e){wilderness_mapGrab(e)};
-    gameWindow.onclick = function(e){wilderness_mapClick()};
+    // gameWindow.onclick = function(e){wilderness_mapClick()};
     gameWindow.onmousemove = function(e){wilderness_mouseOnMapMove(e)};
 }
 
@@ -87,10 +88,8 @@ function wilderness_showObject(theObject)
     
     theObject.div.style.backgroundPositionX = objectBGPosX + 'px';
     theObject.div.style.backgroundPositionY = objectBGPosY + 'px';
-    theObject.div.style.position = 'absolute';
     theObject.div.style.left = objectPositionX + 'px';
     theObject.div.style.top = objectPositionY + 'px';
-    theObject.div.style.cursor = 'pointer';
 }
 
 function wilderness_mapGrab(e)
@@ -103,13 +102,12 @@ function wilderness_mapGrab(e)
     e.preventDefault();
 }
 
-function wilderness_mapClick()
+function wilderness_mapClick(OBJECT)
 {
-    const OBJECT = wilderness_mapDetails.objectCaught;
-    if(OBJECT >= 0 && wilderness_mapDetails.mapMoved == false)
+    if(wilderness_mapDetails.mapMoved == false && OBJECT.div.style.width.slice(0,-2) *1 > 0 && OBJECT.div.style.height.slice(0,-2) *1 > 0)
     {
-        const FUNCTION = wilderness_mapDetails.objects[OBJECT].function;
-        const ARGUMENTS = wilderness_mapDetails.objects[OBJECT].functionArguments;
+        const FUNCTION = OBJECT.function;
+        const ARGUMENTS = OBJECT.functionArguments;
         FUNCTION(ARGUMENTS);
     }
 }
@@ -121,41 +119,14 @@ function wilderness_mouseOnMapMove(e)
 
     if(wilderness_mapDetails.mousedown == false)
     {
-        const X = e.x - gameWindow.style.backgroundPositionX.slice(0,-2) - gameWindow.offsetParent.offsetLeft;
-        const Y = e.y - gameWindow.style.backgroundPositionY.slice(0,-2) - gameWindow.offsetParent.offsetTop;
-        const cursorPos = [X, Y];
-        document.getElementById('positionText').innerHTML = Math.floor(cursorPos[0] / 10)  + '/' + Math.floor(cursorPos[1] / 10);
-        const currentObject = wilderness_mapDetails.activeObject;
-        let objectCaught = -1;
-        for(let i = 0; i < wilderness_mapDetails.objects.length; i++)
-        {
-            if(cursorPos[0] >= wilderness_mapDetails.objects[i].position[0] &&
-                cursorPos[1] >= wilderness_mapDetails.objects[i].position[1] &&
-                cursorPos[0] <= wilderness_mapDetails.objects[i].position[2] && 
-                cursorPos[1] <= wilderness_mapDetails.objects[i].position[3])
-                    objectCaught = i;
-        }
-        if(objectCaught != currentObject)
-        {
-            if(currentObject >= 0)
-                wilderness_mapDetails.objects[currentObject].div.style.backgroundImage = 'url(img/' + wilderness_mapDetails.objects[currentObject].img + '.webp)';
-            if(objectCaught >= 0)
-                wilderness_mapDetails.objects[objectCaught].div.style.backgroundImage = 'url(img/' + wilderness_mapDetails.objects[objectCaught].img + '_active.webp)';
-            wilderness_mapDetails.activeObject = objectCaught;
-        }
-        wilderness_mapDetails.objectCaught = objectCaught;
+        const X = e.x - gameWindow.style.backgroundPositionX.slice(0,-2) - gameWindow.offsetParent.offsetLeft - gameWindow.offsetParent.clientLeft;
+        const Y = e.y - gameWindow.style.backgroundPositionY.slice(0,-2) - gameWindow.offsetParent.offsetTop - gameWindow.offsetParent.clientTop;
+        document.getElementById('positionText').innerHTML = Math.floor(X / 10)  + '/' + Math.floor(Y / 10);
     }
 }
 
 function wilderness_mapMove(e)
 {
-    if(wilderness_mapDetails.mouseMove == false && wilderness_mapDetails.activeObject >= 0)
-    {
-        const currentObject = wilderness_mapDetails.activeObject;
-        wilderness_mapDetails.objects[currentObject].div.style.backgroundImage = 'url(img/' + wilderness_mapDetails.objects[currentObject].img + '.webp)';
-        wilderness_mapDetails.activeObject = -1;
-    }
-
     wilderness_mapDetails.mouseMove = false;
 
     if(wilderness_mapDetails.mousedown)
