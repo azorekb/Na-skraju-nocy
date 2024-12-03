@@ -2,7 +2,7 @@ function start()
 {
 	//construct body
 	const base = newElement('div', document.body, 'base');
-	const mainContainter = newElement('div', base, 'main');
+	const mainContainter = newElement('div', base, 'main flexbox');
 	const menuBlock = newElement('div', mainContainter, 'menuBlock');
 	const userBox = newElement('div', menuBlock);
 	const userSettings = newElement('div', userBox, 'flexbox userBox');
@@ -16,7 +16,7 @@ function start()
 	const moneyBlock = newElement('div', menuBlock, 'moneyBlock')
 	for(let i = 0; i < TEXTS.start.money.length; i++)
 	{
-		const blockDiv = newElement('div', moneyBlock, 'money');
+		const blockDiv = newElement('div', moneyBlock, 'money flexbox space');
 		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH]);
 		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH] + 'Amount');
 	}
@@ -27,7 +27,7 @@ function start()
 
 	for(let i = 0; i < TEXTS.start.buttons.length; i++)
 	{
-		const theButton = newElement('div', menuButtons, 'image listButton', TEXTS.start.buttons[i][ENGLISH]);
+		const theButton = newElement('div', menuButtons, 'image listButton button', TEXTS.start.buttons[i][ENGLISH]);
 		theButton.onclick = function(){showWindow(theButton.id)}
 		newElement('p', theButton);
 	}

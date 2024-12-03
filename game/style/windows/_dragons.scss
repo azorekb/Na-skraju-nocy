@@ -1,0 +1,85 @@
+.placesContainer
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: $places-container-margin;
+    justify-content: center;
+
+    .place
+    {
+        text-align: center;
+        font-size: $place-font-size;
+        cursor: pointer;
+        width: $place-width;
+        height: $place-height;
+        margin: $place-margin;
+        padding: $place-padding;
+        background-image: $button-background;
+
+        &:hover
+        {
+            background-color: $place-background-hover;
+            font-family: NorseBold;
+        }
+
+        .dragon
+        {
+            padding: $dragon-padding;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            white-space: nowrap;
+
+            &:last-child
+            {
+                font-size: $dragon-font-size;
+            }
+        }
+
+    }
+}
+
+.dragonInfo
+{
+    margin: auto;
+    
+    .dragonImage
+    {
+        height: $dragon-image-size;
+        width: $dragon-image-size;
+        margin: auto;
+    }
+
+    p
+    {
+        text-align: center;
+        font-size: $dragon-info-font-size;
+        margin: $dragon-info-margin;
+    }
+}
+
+.dragonStats
+{
+    border-spacing: 0;
+    margin: auto;
+     
+    tr:first-child td
+    {
+        color: $main-text-color;
+        text-align: left;
+    }
+    
+    td
+    {
+        color: white;
+        font-family: Norse;
+        /* border: 2px solid; */
+        padding: $dragon-stats-padding;
+        text-align: right;
+        
+        &:first-child
+        {
+            color: $main-text-color;
+            text-align: left;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.testDiv
+{
+    margin-left: 10px;
+    p
+    {
+        text-align: center;
+    }
+}
+
+
+.testTable
+{
+    text-align: center;
+    background-color: $main-text-color;
+    tr
+    {
+        background-color: black;
+        &:hover
+        {
+            background-color: #030;
+        }
+    }
+
+    td
+    {
+        border: 1px solid;
+        max-width: 200px;
+    }
+}
+
+

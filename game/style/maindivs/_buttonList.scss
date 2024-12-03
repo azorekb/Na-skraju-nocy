@@ -1,0 +1,28 @@
+.listButton
+{
+    background-image: $main-button-background;
+    padding: $main-button-padding;
+    width: $main-button-width;
+    height: $main-button-height;
+    color: $main-button-text-color;
+    font-size: $main-button-font-size;
+
+    &:hover
+    {
+        opacity: 0.7;
+        font-family: NorseBold;
+    }
+
+    p
+    {
+        text-align: center;
+        overflow-x: hidden;
+        white-space: nowrap;
+        margin: $main-button-p-margin;
+        
+        &:hover
+        {
+            direction: rtl;
+        }
+    }
+}

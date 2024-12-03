@@ -1,0 +1,20 @@
+.arrow
+{
+    width: $arrow-size;
+    height: $arrow-size;
+    align-self: center;
+    margin: $arrow-margin;
+    cursor: pointer;
+    background-image: $arrow-background;
+    
+    &.left
+    {
+        transform: scaleX(-1);
+    }
+}
+
+.buildingImage
+{
+    height: $building-image-height;
+    flex-grow: 1;
+}

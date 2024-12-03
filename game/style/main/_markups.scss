@@ -1,0 +1,43 @@
+html
+{
+    min-height: 100%;
+}
+
+body
+{
+    background-image: $body-background;
+    color: $main-text-color;
+    margin: 0;
+    font-family: Norse;
+}
+
+select
+{
+    width: $select-width;
+    height: $select-height;
+    border-width: $inputs-border-width;
+    border-style: solid;
+    border-color: $main-text-color;
+    background-color: $inputs-background-color;
+    background-image: $select-background;
+    background-size: cover;
+    appearance: none;
+}
+
+input
+{
+    width: $input-width;
+    height: $input-height;
+    border-width: $inputs-border-width;
+    border-style: solid;
+    border-color: $main-text-color;
+    background-color: $inputs-background-color;
+    padding: 0;
+    margin: $input-margin;
+}
+
+sup
+{
+    display: block;
+    margin: $sup-margin;
+}

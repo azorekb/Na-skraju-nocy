@@ -1,0 +1,50 @@
+.userBox
+{
+    margin: 0 auto;
+    width: max-content;
+}
+
+.user
+{
+    margin-top: $user-margin;
+    padding: $user-padding;
+}
+
+#avatar
+{
+    height: $avatar-height;
+}
+
+#username
+{
+    margin: $username-margin;
+    text-align: center;
+    overflow-wrap: anywhere;
+    font-size: $user-font-size;
+}
+
+.settingsBlock
+{
+    div
+    {
+        width: $settingsblock-div-width;
+        height: $settingsblock-div-height;
+        cursor: pointer;
+        margin: $settingsblock-div-margin;
+        
+        &:hover
+        {
+            background-color: $settingsblock-div-hover;
+        }
+    }
+    
+    .settings
+    {
+        background-image: $settings-background;
+    }
+    
+    .post
+    {
+        background-image: url('img/post_pigeon.webp');//temporary
+    }
+}

@@ -13,7 +13,7 @@ function treasury_load(_res, _info = null)
     for(let i = 0; i < _res.length; i++)
     {
         const itemContainter = newElement('div', itemStorage);
-        const item = newElement('div', itemContainter);
+        const item = newElement('div', itemContainter, 'item image');
         const text = newElement('span', itemContainter);
         newElement('div', gameWindow, 'optionsList', 'optionsList');
 

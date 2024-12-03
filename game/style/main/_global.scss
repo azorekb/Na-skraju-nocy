@@ -1,0 +1,50 @@
+.flexbox
+{
+    display: flex;
+
+    &.space
+    {
+        justify-content: space-between;
+    }
+}
+
+.none
+{
+    display: none;
+}
+
+.image
+{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.button
+{
+    cursor: pointer;
+}
+
+.grey
+{
+    filter: grayscale(1)
+}
+
+.bigName
+{
+    background-image: $bigname-background;
+    background-size: cover;
+    width: $bigname-width;
+    height: $bigname-height;
+    margin: $bigname-margin;
+    color: $bigname-text-color;
+    text-align: center;
+    font-size: $bigname-font-size;
+    
+    p
+    {
+        margin: 0;
+        padding: $bigname-padding;
+    }
+}

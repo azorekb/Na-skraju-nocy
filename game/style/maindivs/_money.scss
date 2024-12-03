@@ -1,0 +1,22 @@
+.moneyBlock
+{
+    margin: $moneyBlock-margin;
+    background-color: $moneyBlock-background;
+}
+
+.money 
+{
+    font-size: $money-font-size;
+    border-width: $money-border-size;
+    border-style: solid;
+    border-bottom-style: none;
+    &:last-child
+    {
+        border-bottom-style: solid;
+    }
+
+    div
+    {
+        margin: $money-elements-margin;
+    }
+}

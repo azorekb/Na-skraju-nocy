@@ -1,0 +1,115 @@
+.character
+{
+    position: absolute;
+    top: $character-top;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: $character-height;
+    width: $character-width;
+
+    &.left
+    {
+        left: $character-position-x;
+    }
+    
+    &.right
+    {
+        right: $character-position-x;
+    }
+    
+    &.femBreeder
+    {
+        background-image: $dragon-guardian-f;
+    }
+    
+    &.maleBreeder
+    {
+        background-image: $dragon-breeder-m;
+    }
+}
+
+.dialogueBox
+{
+    width: $dialogBox-width;
+    padding: $dialogBox-padding;
+    z-index: 1;
+    font-family: Sylfaen;
+    
+    .nameBox
+    {
+        border-style: solid;
+        border-width: $dialog-name-border;
+        margin: $dialog-name-margin;
+        width: max-content;
+        background-color: $dialog-name-background;
+        padding: $dialog-name-padding;
+        font-size: $dialog-name-font-size;
+    }
+    
+    .textBox
+    {
+        height: $dialog-text-width;
+        background-color: $dialog-text-background;
+        border-style: solid;
+        border-width: $dialog-text-border;
+        padding: $dialog-text-padding;
+        font-size: $dialog-text-font-size;
+        position: relative;
+        
+        
+        .buttonDragon
+        {
+            width: $dialog-buttondragon-size;
+            height: $dialog-buttondragon-size;
+            border: none;
+            margin-right: $dialog-buttondragon-margin;
+            background-color: $dialog-buttondragon-background;
+            cursor: pointer;
+            background-size: cover;
+            color: $dialog-buttondragon-text;
+            font-weight: bold;
+        }
+        
+        
+        button
+        {
+            color: $main-text-color;
+            
+            &:hover
+            {
+                background-color: $dialog-button-background-hover;
+                color: $dialog-button-text;
+            }
+        }
+        
+        .formDiv
+        {
+            align-self: center;
+            text-align: center;
+            margin-left: $dialog-formdiv-margin;
+        }
+    }
+}
+
+.buttonOk
+{
+    cursor: pointer;
+    width: max-content;
+    height: max-content;
+    border-style: solid;
+    border-width: $dialog-buttonok-border;
+    background-color: $dialog-buttonok-background;
+    padding: $dialog-buttonok-padding;
+    margin: $dialog-buttonok-margin;
+    // color: #a06501;
+    font-size: $dialog-buttonok-font-size;
+    min-width: max-content;
+}
+
+.buttonNext
+{
+    position: absolute;
+    bottom: $dialog-buttonnext-position;
+    right: $dialog-buttonnext-position;
+    margin: 0;
+}

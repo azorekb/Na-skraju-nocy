@@ -1,0 +1,38 @@
+.categoryContainer
+{
+    width: max-content;
+    margin: auto;
+    
+    .category
+    {
+        border-style:solid;
+        border-width: $settings-category-border;
+        border-left-style: none;
+        padding: $settings-padding;
+        cursor: pointer;
+        
+        &:hover
+        {
+            background-color: $settings-category-background-hover;
+        }
+        
+        &:first-child
+        {
+            border-left-style: solid;
+        }
+    }
+}
+
+.optionsDiv 
+{
+    padding: $settings-padding;
+}
+
+.alert
+{
+    text-align: center;
+    margin: $alert-margin;
+    padding: $alert-padding;
+    color: $alert-text-color;
+    width: max-content;
+}

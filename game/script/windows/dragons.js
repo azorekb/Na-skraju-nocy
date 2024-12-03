@@ -7,9 +7,9 @@ function dragons_load(res)
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
     for(let i = 0; i < res.length; i++)
     {
-        const dragon = newElement('div', placesContainer, 'flexbox place dragon');
-        newElement('div', dragon).innerText = res[i]['name'];
-        newElement('div', dragon).innerHTML = TEXTS.lists.elements[res[i]['element']].symbol;
+        const dragon = newElement('div', placesContainer, 'flexbox place space');
+        newElement('div', dragon, 'dragon').innerText = res[i]['name'];
+        newElement('div', dragon, 'dragon').innerHTML = TEXTS.lists.elements[res[i]['element']].symbol;
         dragon.onclick = function(){dataBaseConnect(DBC_NAMES.specificDragon, gameWindow, res[i]['id']);}
     }
 }
@@ -30,10 +30,7 @@ function dragons_showDragon(res)
     //     else
     //         castle_showBuilding(building - 1)
     // };
-    const img = res['stadium'] * 1 > 0 ? 'img/dragons/' + res['species'] + '/' + res['element'] + '/' + res['stadium'] + '.webp' : 'img/dragons/' + res['species'] + '/egg.webp';
-    const dragonInfo = newElement('div', arrows, 'dragonInfo');
-    newElement('div', dragonInfo, 'dragonImage image').style.backgroundImage = 'url(' + img + ')';
-    newElement('p', dragonInfo).innerText = TEXTS.lists.species[res['species']].thename[userInfo.language] + '\n' + TEXTS.lists.elements[res['element']].thename[userInfo.language] + '\n' + TEXTS.dragons.stats[0][userInfo.language] + ' ' + res['level'];
+    newElement('div', arrows, 'dragonInfo');
     // newElement('div', arrows, 'right arrow image').onclick = function()
     // {
     //     if(building == TEXTS.lists.buildings.length - 1)
@@ -48,6 +45,8 @@ function dragons_showDragon(res)
         option.innerText = TEXTS.dragons.options[i][userInfo.language];
         option.onclick = function(){dragon_dragonOptions(TEXTS.dragons.options[i][ENGLISH], res)}
     }
+
+    dragon_dragonOptions('preview', res);
 }
 
 function dragon_dragonOptions(option, res)
@@ -56,6 +55,12 @@ function dragon_dragonOptions(option, res)
     switch(option)
     {
         case 'preview':
+            dragonInfo.innerHTML = '';
+            const img = res['stadium'] * 1 > 0 ? 'img/dragons/' + res['species'] + '/' + res['element'] + '/' + res['stadium'] + '.webp' : 'img/dragons/' + res['species'] + '/egg.webp';
+            newElement('div', dragonInfo, 'dragonImage image').style.backgroundImage = 'url(' + img + ')';
+            newElement('p', dragonInfo).innerText = TEXTS.lists.species[res['species']].thename[userInfo.language] + '\n' + TEXTS.lists.elements[res['element']].thename[userInfo.language] + '\n' + TEXTS.dragons.stats[0][userInfo.language] + ' ' + res['level'];
+        break;
+        case 'dragon frame':
             // window.open('dragon/?id=' + res['id'] + '&language=' + userInfo.language, '_blank', 'width=378,height=580,location=0,menubar=0,status=0,toolbar=0,resizable=0,location=0');
             const newWindow = window.open('', 'dragon', 'width=378,height=580,location=0,menubar=0,status=0,toolbar=0,resizable=0,location=0');
             newWindow.document.write('<!DOCTYPE html>');
@@ -119,7 +124,6 @@ function dragon_dragonOptions(option, res)
                 table.rows[i].insertCell(6).innerText = train;
                 table.rows[i].insertCell(7).innerText = equipment;
             }
-            
         break;
     }
 }

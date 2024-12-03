@@ -1,0 +1,63 @@
+.itemsStorage 
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding: $itemStorage-padding;
+    justify-content: center;
+    
+    .item
+    {
+        width: $item-size;
+        height: $item-size;
+        border-style: solid;
+        border-width: $item-border-size;
+        margin-top: $item-margin;
+        margin-right: $item-margin;
+        border-radius: $item-size;
+        background-color: $item-background;
+        display: flex;
+        align-items: end;
+        background-size: auto calc($item-size * 3/4);
+    }
+    
+    span
+    {
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+}
+
+.optionsList
+{
+    position: absolute;
+    
+    .option
+    {
+        background-color: $option-background;
+        border-width: $option-margin;
+        border-style: solid;
+        width: $option-width;
+        text-align: center;
+
+        .item
+        {
+            &.suboption
+            {
+                justify-content: space-between;
+                padding: $suboption-padding;
+    
+                &:hover
+                {
+                    background-color: $option-bgcolor;
+                    cursor: pointer;
+                }
+            }
+
+            img
+            {
+                height: $item-img-height;
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.base
+{
+    max-width: fit-content;
+    margin: $base-margin;
+}
+
+.main 
+{
+    margin: $main-margin;
+}
+
+.menuBlock
+{
+    margin-right: $menuBlock-margin;
+    width: min-content;
+}
+
+.mainDiv 
+{
+    border-style: solid;
+    border-width: $gameWindow-parent-border-size;
+    border-image: $gameWindow-parent-border-image;
+    position: relative;
+    width: max-content;
+}
