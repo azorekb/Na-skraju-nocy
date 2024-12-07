@@ -35,8 +35,8 @@ function sendRequest(_what, _sendingData, _info = null)
 			switch(RESPONSE['status'])
 			{
 				case 'success': theText = 'success'; break;
-				case 'no dragon': theText = _info.thename + TEXTS.connectionStatus.noDragons[userInfo.language]; break;
-				case 'no stone': theText = TEXTS.connectionStatus.noStone[userInfo.language]; break;
+				case 'no dragon': theText = _info.thename + TEXTS.connectionStatus.noDragons[userInfo['language']]; break;
+				case 'no stone': theText = TEXTS.connectionStatus.noStone[userInfo['language']]; break;
 			}
 
 			switch(_what)
@@ -56,11 +56,11 @@ function sendRequest(_what, _sendingData, _info = null)
 					treasury_load(RES, _info);
 				break;
 				case 3:
-					const genderEnd = TEXTS.genderEnds[_info.sex][userInfo.language];
+					const genderEnd = TEXTS.genderEnds[_info.sex][userInfo['language']];
 					let theStatus = 0;
 					if(theText == 'success')
 					{
-						theText = TEXTS.connectionStatus.successConnectDragon[userInfo.language].replace('[name]', _info.thename).replace('[a]', genderEnd);
+						theText = TEXTS.connectionStatus.successConnectDragon[userInfo['language']].replace('[name]', _info.thename).replace('[a]', genderEnd);
 						theStatus = 1;
 					}
 					showWindow('treasury', {info: theText, theStatus: theStatus});
@@ -121,6 +121,7 @@ const DBC_NAMES =
 	editSettings: 4,
 	listOfDragons: 5,
 	specificDragon: 6,
+	feedDragon: 7,
 }
 
 function dataBaseConnect(_what, _div = null, _options = null)
@@ -144,40 +145,39 @@ function dataBaseConnect(_what, _div = null, _options = null)
 		items: 'nsn_items'
 	}
 	let sendingData = new FormData();
-	const userID = sessionStorage.getItem('userID');
 	const stoneCategory = getItemCategoryIdByName('philosopher\'s stones');
 	const regularStone = getItemTypeIdByName('regular philosopher\'s stone');
 	switch(_what)
 	{
 		case 0:
 			sendingData.append(SENDING_DATA.target, 'select');
-			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, id, nickname, language');
+			sendingData.append(SENDING_DATA.columns, 'coppers, silver, gold, username, avatar, tutorial, nickname, language');
 			sendingData.append(SENDING_DATA.table, DB.login);
-			sendingData.append(SENDING_DATA.conditions, 'ID');
+			sendingData.append(SENDING_DATA.conditions, 'id = ID');
 		break;
 		case 1:
-			sendingData.append(SENDING_DATA.target, 'chechk\\add\\add\\edit');
+			sendingData.append(SENDING_DATA.target, 'check\\add\\add\\edit');
 			sendingData.append(SENDING_DATA.table, DB.login + '\\' + DB.dragons + '\\' + DB.items + '\\' + DB.login);
 			sendingData.append(SENDING_DATA.columns, 'tutorial\\sex, name, owner, element, species\\userID, category, type, amount\\null');
 			sendingData.append(SENDING_DATA.values,'null\\' + 
-				temporary.gender + ',"' + temporary.name + '",' + userID + ',' + temporary.element + ',' + temporary.dragon + '\\' +
-				userID + ',' + stoneCategory + ',' + regularStone + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
+				temporary.gender + ',"' + temporary.name + '",ID,' + temporary.element + ',' + temporary.dragon + '\\' +
+				'ID,' + stoneCategory + ',' + regularStone + ',' + TEXTS.firstAdoption.starterStonesAmount + '\\' +
 				'tutorial = 1'
 			);
-			sendingData.append('conditions', 'id = ' + userID + ' and tutorial = 0\\null\\null\\id = ' + userID);
+			sendingData.append('conditions', 'id = ID and tutorial = 0\\null\\null\\id = ID');
 		break;
 		case 2:
 			sendingData.append(SENDING_DATA.target, 'select\\select');
 			sendingData.append(SENDING_DATA.columns, 'name, species, id, sex\\category, type, amount');
 			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items);
-			sendingData.append(SENDING_DATA.conditions, 'owner = ' + userID + ' and stone = 0\\userID = ' + userID);
+			sendingData.append(SENDING_DATA.conditions, 'owner = ID and stone = 0\\userID = ID');
 		break;
 		case 3:
 			sendingData.append(SENDING_DATA.target, 'check\\check\\edit\\edit');
 			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.items + '\\' + DB.dragons + '\\' + DB.items)
 			sendingData.append(SENDING_DATA.columns, 'stone\\amount\\null\\null');
 			sendingData.append(SENDING_DATA.values, 'null\\null\\stone = ' + _options.type + '\\amount = amount - 1')
-			sendingData.append(SENDING_DATA.conditions,'id = ' + _options.id + ' and stone = 0\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type + ' and amount >= 1\\id = ' + _options.id + '\\userID = ' + userID + ' and category = ' + stoneCategory + ' and type = ' + _options.type);
+			sendingData.append(SENDING_DATA.conditions,'id = ' + _options.id + ' and stone = 0\\userID = ID and category = ' + stoneCategory + ' and type = ' + _options.type + ' and amount >= 1\\id = ' + _options.id + '\\userID = ID and category = ' + stoneCategory + ' and type = ' + _options.type);
 			sendingData.append(SENDING_DATA.error, 'no dragon\\no stone\\null\\null');
 		break;
 		case 4:
@@ -207,7 +207,7 @@ function dataBaseConnect(_what, _div = null, _options = null)
 			sendingData.append(SENDING_DATA.target, 'select');
 			sendingData.append(SENDING_DATA.columns, 'id, name, element');
 			sendingData.append(SENDING_DATA.table, DB.dragons);
-			sendingData.append(SENDING_DATA.conditions, 'stone > 0 and owner = ' + userID);
+			sendingData.append(SENDING_DATA.conditions, 'stone > 0 and owner = ID');
 		break
 		case 6:
 			let stats = '';
@@ -220,6 +220,19 @@ function dataBaseConnect(_what, _div = null, _options = null)
 			sendingData.append(SENDING_DATA.columns, 'id, name, level, element, stadium, species, frame' + stats);
 			sendingData.append(SENDING_DATA.table, DB.dragons);
 			sendingData.append(SENDING_DATA.conditions, 'id = ' + _options);
+		break;
+		case 7:
+			sendingData.append(SENDING_DATA.target, 'check\\edit');
+			sendingData.append(SENDING_DATA.columns, 'last_feed\\null');
+			sendingData.append(SENDING_DATA.table, DB.dragons + '\\' + DB.dragons);
+			switch(_options.food)
+			{
+				case 0: 
+					sendingData.append(SENDING_DATA.conditions, '(DATEDIFF(second, last_feed, CURRENT_TIMESTAMP) >= 28800 or last_feed = 0) and id = ' + _options.id + '\\id = ' + _options.id);
+					sendingData.append(SENDING_DATA.error, 'too early for feed\\null');
+					sendingData.append(SENDING_DATA.values, 'null\\last_feed = CURRENT_TIMESTAMP, level = level + 1');
+				break;
+			}
 		break;
 
 		//test

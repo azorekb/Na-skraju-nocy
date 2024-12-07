@@ -8,44 +8,57 @@ const TEXTS =
             {
                 thename: ['Smok Właściwy','Proper Dragon'],
                 stats: [5, 0, 5, -2, 0, -8, 5, 0],
+                favfud: 6
             },
             {
                 thename: ['Smoczór', 'Drake'],
                 stats: [5, 10, 0, -5, 0, -10, 5, 0],
+                favfud: 2
             },
             {
                 thename: ['Wywerna', 'Wywern'],
                 stats: [0, -5, 5, 3, 0, 2, 0, 0],
+                favfud: 3
             },
             {
                 thename: ['Bazyliszek', 'Basilisk'],
+                favfud: 1
             },
             {
                 thename: ['Hydra', 'Hydra'],
+                favfud: 4
             },
             {
                 thename: ['Wyrm', 'Wyrm'],
+                favfud: 6
             },
             {
                 thename: ['Lung', 'Lung'],
+                favfud: 8
             },
             {
                 thename: ['Mantria', 'Mantra'],
+                favfud: 5
             },
             {
                 thename: ['Żmij', 'Zmey'],
+                favfud: 3
             },
             {
                 thename: ['Lewiatan', 'Leviathan'],
+                favfud: 4
             },
             {
                 thename: ['Ćmok', 'Mothagon'],
+                favfud: 2
             },
             {
                 thename: ['Kirin', 'Kirin'],
+                favfud: 1
             },
             {
                 thename: ['Baśniosmok', 'Faerie'],
+                favfud: 7
             },
         ],
         elements:
@@ -228,6 +241,168 @@ const TEXTS =
                         itemName: ['złoty kocioł', 'gold cauldron'],
                     },
                 ]
+            },
+            {// 2
+                categoryName: ['składniki spożywcze', 'food ingredients'],
+                items:
+                [
+                    {// 0
+                        itemName: ['woda', 'water'],
+                    },
+                    {// 1
+                        itemName: ['roślinne', 'plant'],
+                        variants: 
+                        [
+                            {// 0
+                                varname: ['cukrowe korzonki', 'sugar roots'],
+                            },
+                            {// 1
+                                varname: ['pszenica', 'wheat'],
+                            },
+                            {// 2
+                                varname: ['żyto', 'rye'],
+                            },
+                            {// 3
+                                varname: ['owies', 'oat'],
+                            },
+                            {// 4
+                                varname: ['kukurydza', 'corn'],
+                            },
+                            {// 5
+                                varname: ['ziemniak', 'potato'],
+                            },
+
+                        ],
+                        raises: 2
+                    },
+                    {// 2
+                        itemName: ['czerwone mięso', 'red meat'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['wołowina', 'beef']
+                            },
+                            {// 1
+                                varname: ['baranina', 'mutton']
+                            },
+                            {// 2
+                                varname: ['kozina', 'goat']
+                            },
+                            {// 3
+                                varname: ['dziczyzna', 'venison']
+                            }
+                        ],
+                        raises: 7
+                    },
+                    {// 3
+                        itemName: ['mięso drobiowe', 'poultry meat'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['kurczak', 'chicken'],
+                            },
+                            {// 1
+                                varname: ['gęś', 'goose'],
+                            },
+                            {// 2
+                                varname: ['kaczka', 'duck'],
+                            }
+                        ],
+                        raises: 1
+                    },
+                    {// 4
+                        itemName: ['ryba', 'fish'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['pstrąg', 'trout'],
+                            },
+                            {// 1
+                                varname: ['łosoś', 'salmon'],
+                            },
+                            {// 2
+                                varname: ['karp', 'carp'],
+                            }
+                        ],
+                        raises: 6
+                    },
+                    {// 5
+                        itemName: ['grzyb', 'mushroom'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['pieczarka', 'mushrooms'],
+                            },
+                            {// 1
+                                varname: ['borowik', 'boletus'],
+                            },
+                            {// 2
+                                varname: ['kurka', 'chanterelle'],
+                            },
+                            {// 3
+                                varname: ['maślak', 'butterfish'],
+                            }
+                        ],
+                        raises: 5
+                    },
+                    {// 6
+                        itemName: ['kryształ', 'crystal'],
+                        variants:
+                        [
+                            {
+                                varname: ['kwarc', 'quartz'],
+                            }
+                        ],
+                        raises: 8
+                    },
+                    {// 7
+                        itemName: ['wyrób piekarniczy', 'bakery product'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['chleb', 'bread']
+                            },
+                            {// 1
+                                varname: ['rogalik', 'croissant']
+                            },
+                            {// 2
+                                varname: ['pączek', 'donut']
+                            },
+                        ],
+                        raises: 3
+                    },
+                    {// 8
+                        itemName: ['miód', 'honey'],
+                        raises: 4
+                    },
+                    {// 9
+                        itemName: ['zioła i przyprawy', 'herbs and spices'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['mięta', 'mint']
+                            },
+                            {// 1
+                                varname: ['sól', 'salt']
+                            },
+                        ]
+                    },
+                    {// 10
+                        itemName: ['nabiał', 'dairy'],
+                        variants:
+                        [
+                            {// 0
+                                varname: ['krowie mleko', 'cow milk']
+                            },
+                            {// 1
+                                varname: ['ser żółty', 'yellow cheesee']
+                            },
+                            {// 2
+                                varname: ['śmietana', 'cream']
+                            },
+                        ]
+                    }
+                ]
             }
         ],
         buildings:
@@ -367,12 +542,13 @@ const TEXTS =
     dragons:
     {
         title: ['smoki', 'dragons'],
+        care: ['pielęgnuj', 'care'],
         options:
         [
             ['podgląd', 'preview'],
             ['statystyki', 'statistics'],
             ['dieta', 'diet'],
-            ['waleczność', 'prowess'],
+            ['doświadczenie', 'expirience'],
             ['ekwipunek', 'equipment'],
             ['rozród', 'generation'],
             ['smocza ramka', 'dragon frame']
@@ -408,9 +584,24 @@ const TEXTS =
             ['ekwipunek', 'equipment'],
             ['rodzina', 'family'],
         ],
+    },
+    wilderness:
+    {
+        time: ['czas podróży', 'travel time'],
+        hours: ['godzin(y)', 'hours'],
+        travels: 
+        [
+            {
+                travel: ['brak', 'none'],
+                description: ['', '']
+            },
+            {
+                travel: ['Ropiejące Bagna', 'Festering Swamps'],
+                description: ['Ropiejące Bagna dostały swą nazwę od złóż ropy. Teren jest raczej toksyczny, ale za to bezpieczny, dlatego to dobre miejsce do rozpoczęcia przygody dla młodych smoków. Poza wymienionymi złożami można odnaleźć zioła, grzyby, oraz niedużą zwierzynę jak małe płazy czy ptaki.', 'translating in progress...']
+            }
+        ]
     }
 }
-
 const FILES =
 {
     logo: '../img/logo_v1.webp',

@@ -8,3 +8,31 @@
     position: absolute;
     cursor: pointer;
 }
+
+.travelImage
+{
+    width: $travel-image-size;
+    height: $travel-image-size;
+    margin: auto;
+}
+
+.sunwatch
+{
+    width: $travel-sunwatch-width;
+    height: $travel-sunwatch-height;
+    background-image: $travel-sunwatch-background;
+    cursor: pointer;
+
+    div
+    {
+        text-align: center;
+        margin-top: 190px;
+        color: #fff;
+    }
+}
+
+.travelForm
+{
+    flex-grow: 1;
+    text-align: center;
+}

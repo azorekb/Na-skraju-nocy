@@ -47,6 +47,16 @@
   padding: 13px;
 }
 
+.center {
+  margin: auto;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.relative {
+  position: relative;
+}
+
 html {
   min-height: 100%;
 }
@@ -291,7 +301,8 @@ sup {
   margin: 6px;
   justify-content: center;
 }
-.placesContainer .place {
+
+.place {
   text-align: center;
   font-size: 20px;
   cursor: pointer;
@@ -301,22 +312,23 @@ sup {
   padding: 7px 0;
   background-image: url(img/buttonBorder.webp);
 }
-.placesContainer .place:hover {
+.place:hover {
   background-color: #123;
   font-family: NorseBold;
 }
-.placesContainer .place .dragon {
+.place .dragon {
   padding: 2px 13px;
   overflow-x: hidden;
   overflow-y: hidden;
   white-space: nowrap;
 }
-.placesContainer .place .dragon:last-child {
+.place .dragon:last-child {
   font-size: 15px;
 }
 
 .dragonInfo {
   margin: auto;
+  height: 230px;
 }
 .dragonInfo .dragonImage {
   height: 150px;
@@ -334,19 +346,27 @@ sup {
   margin: auto;
 }
 .dragonStats tr:first-child td {
-  color: #a06501;
   text-align: left;
+  border-top: 1px solid #a06501;
+}
+.dragonStats tr:first-child td:first-child {
+  border-left-style: none;
+  border-top-style: none;
 }
 .dragonStats td {
   color: white;
   font-family: Norse;
-  /* border: 2px solid; */
+  border-bottom: 1px solid #a06501;
   padding: 2px 4px;
-  text-align: right;
+  text-align: center;
 }
 .dragonStats td:first-child {
-  color: #a06501;
   text-align: left;
+  border-left: 1px solid #a06501;
+  border-right: 1px solid #a06501;
+}
+.dragonStats td:last-child {
+  border-right: 1px solid #a06501;
 }
 
 .itemsStorage {
@@ -422,6 +442,29 @@ sup {
   cursor: pointer;
 }
 
+.travelImage {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}
+
+.sunwatch {
+  width: 290px;
+  height: 240px;
+  background-image: url(img/full_blue.webp);
+  cursor: pointer;
+}
+.sunwatch div {
+  text-align: center;
+  margin-top: 190px;
+  color: #fff;
+}
+
+.travelForm {
+  flex-grow: 1;
+  text-align: center;
+}
+
 .categoryContainer {
   width: -moz-max-content;
   width: max-content;
@@ -474,4 +517,5 @@ sup {
 .testTable td {
   border: 1px solid;
   max-width: 200px;
+  font-family: Sylfaen;
 }/*# sourceMappingURL=style.css.map */

@@ -15,6 +15,13 @@ const wilderness_mapDetails =
             function: showWindow,
             functionArguments: 'town',
             div: null
+        },
+        {
+            img: 'fswamps',
+            position: [741,264,805,312],
+            function: wilderness_travel,
+            functionArguments: 'fswamps',
+            travel: 1
         }
     ],
 }
@@ -150,4 +157,76 @@ function wilderness_mapMove(e)
 function wilderness_mapRelease()
 {
     wilderness_mapDetails.mousedown = false;
+}
+
+function wilderness_travel(which)
+{
+    showWindow();
+    const gameWindow = document.getElementById('gameWindow');
+    windowSettings(512, 1050);
+    const img = newElement('div', gameWindow, 'image travelImage');
+    img.style.backgroundImage = 'url(img/' + which + '_image.webp)';
+    const container = newElement('div', gameWindow, 'flexbox');
+    const form = newElement('div', container, 'travelForm');
+    const travelTime = newElement('p', form);
+    travelTime.innerText = TEXTS.wilderness.time[userInfo['language']] + ': 3 ' + TEXTS.wilderness.hours[userInfo['language']];
+    temporary.time = 3;
+    const select = newElement('div', form);
+    const watch = newElement('div', container, 'sunwatch');
+    const time = newElement('div', watch);
+    
+    watch.onmousemove = function(e){wilderness_chooseTime(e, this, time)}
+    watch.onclick = function(){wilderness_setTime(travelTime)}
+}
+
+function wilderness_setTime(text)
+{
+    temporary.time = temporary.timechoosing;
+    text.innerText = TEXTS.wilderness.time[userInfo['language']] + ': ' + temporary.time + ' ' + TEXTS.wilderness.hours[userInfo['language']];
+}
+
+function wilderness_chooseTime(e, watch, text)
+{
+    const x = e.pageX - e.currentTarget.offsetLeft - e.currentTarget.clientLeft - e.currentTarget.offsetParent.offsetLeft - e.currentTarget.offsetParent.clientLeft;
+    const y = e.pageY - e.currentTarget.offsetTop - e.currentTarget.clientTop - e.currentTarget.offsetParent.offsetTop - e.currentTarget.offsetParent.clientTop;
+    const X = x - 145;
+    const Y = 170 - y;
+    
+    const angles = [-0.125, -0.256, -0.4, -0.57, -0.77, -1, -1.3, -1.75, -2.5, -3.9, -8, Infinity, 8, 3.9, 2.5, 1.75, 1.3, 1, 0.77, 0.57, 0.4, 0.256, 0.125, 0];
+    let time = 0;
+    if(Y > 0)
+    {
+        const a = X == 0 ? Infinity : Y/X;
+        for(let i = 1; i < angles.length; i++)
+        {
+            if(angles[i - 1] < 0)
+            {
+                if(angles[i] < 0 && a <= angles[i - 1] && a > angles[i])
+                    time = i;
+                if(angles[i] > 0 && a <= angles[i - 1])
+                    time = i;
+            }
+            else if(a <= angles[i - 1] && a > angles[i])
+                time = i;
+        }
+    }
+    else
+        time = X <= 0 ? 0 : angles.length;
+    
+    const width = watch.clientWidth;
+    const height = watch.clientHeight;
+    if(time <= 12)
+    {
+        watch.style.backgroundPositionX = (-1 * width * time) + 'px';
+        watch.style.backgroundPositionY = '0px';
+    }
+    else
+    {
+        watch.style.backgroundPositionX = (-1 * width * (time - 13)) + 'px';
+        watch.style.backgroundPositionY = (-1 * height) + 'px';
+    }
+
+    temporary.timechoosing = Math.floor(time / 2.5) + 3;
+
+    text.innerText = temporary.timechoosing;
 }

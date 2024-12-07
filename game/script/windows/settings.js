@@ -7,7 +7,7 @@ function settings_load()
     for(let i = 0; i < TEXTS.userSettings.length; i++)
     {
         const category = newElement('div', tables, 'category');
-        category.innerText = TEXTS.userSettings[i].category[userInfo.language];
+        category.innerText = TEXTS.userSettings[i].category[userInfo['language']];
         category.onclick = function(){settings_showCategory(i, optionsDiv)}
     }
 }
@@ -19,7 +19,7 @@ function settings_showCategory(number, div)
     {
         const theOption = TEXTS.userSettings[number].options[i];
         const label = newElement('label', div);
-        label.innerText = theOption.option[userInfo.language];
+        label.innerText = theOption.option[userInfo['language']];
         label.htmlFor = 'settings_option_' + i;
         newElement('br', div);
         switch(theOption.type)
@@ -36,7 +36,7 @@ function settings_showCategory(number, div)
                 {
                     const option = newElement('option', inputSelect);
                     option.value = j;
-                    option.innerText = theOption.values[j][userInfo.language];
+                    option.innerText = theOption.values[j][userInfo['language']];
                 }
                 inputSelect.value = userInfo[theOption.table];
             break;
@@ -44,12 +44,12 @@ function settings_showCategory(number, div)
         newElement('br', div);
         if(theOption.hint)
         {
-            newElement('sup', div).innerText = theOption.hint[userInfo.language];
+            newElement('sup', div).innerText = theOption.hint[userInfo['language']];
             newElement('br', div);
         }
     }
     const send = newElement('div', div, 'buttonOk');
-    send.innerText = TEXTS.send[userInfo.language];
+    send.innerText = TEXTS.send[userInfo['language']];
     send.onclick = function(){changeSettings(number); dataBaseConnect(DBC_NAMES.editSettings, send, number);}
 }
 

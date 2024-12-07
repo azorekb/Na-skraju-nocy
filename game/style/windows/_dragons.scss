@@ -4,43 +4,44 @@
     flex-wrap: wrap;
     margin: $places-container-margin;
     justify-content: center;
-
-    .place
-    {
-        text-align: center;
-        font-size: $place-font-size;
-        cursor: pointer;
-        width: $place-width;
-        height: $place-height;
-        margin: $place-margin;
-        padding: $place-padding;
-        background-image: $button-background;
-
-        &:hover
-        {
-            background-color: $place-background-hover;
-            font-family: NorseBold;
-        }
-
-        .dragon
-        {
-            padding: $dragon-padding;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            white-space: nowrap;
-
-            &:last-child
-            {
-                font-size: $dragon-font-size;
-            }
-        }
-
-    }
+    
 }
 
+.place
+{
+    text-align: center;
+    font-size: $place-font-size;
+    cursor: pointer;
+    width: $place-width;
+    height: $place-height;
+    margin: $place-margin;
+    padding: $place-padding;
+    background-image: $button-background;
+
+    &:hover
+    {
+        background-color: $place-background-hover;
+        font-family: NorseBold;
+    }
+
+    .dragon
+    {
+        padding: $dragon-padding;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        white-space: nowrap;
+
+        &:last-child
+        {
+            font-size: $dragon-font-size;
+        }
+    }
+
+}
 .dragonInfo
 {
     margin: auto;
+    height: $dragon-info-height;
     
     .dragonImage
     {
@@ -62,24 +63,41 @@
     border-spacing: 0;
     margin: auto;
      
-    tr:first-child td
+    tr:first-child
     {
-        color: $main-text-color;
-        text-align: left;
+        td
+        {
+            // color: $main-text-color;
+            text-align: left;
+            border-top: $dragon-stats-border;
+
+            &:first-child
+            {
+                border-left-style: none;
+                border-top-style: none;
+            }
+        }
     }
     
     td
     {
         color: white;
         font-family: Norse;
-        /* border: 2px solid; */
+        border-bottom: $dragon-stats-border;
         padding: $dragon-stats-padding;
-        text-align: right;
+        text-align: center;
         
         &:first-child
         {
-            color: $main-text-color;
+            // color: $main-text-color;
             text-align: left;
+            border-left: $dragon-stats-border;
+            border-right: $dragon-stats-border;
+        }
+
+        &:last-child
+        {
+            border-right: $dragon-stats-border;
         }
     }
 }

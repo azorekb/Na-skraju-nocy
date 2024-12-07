@@ -34,7 +34,7 @@ function start()
 
 	//test thingies
 	const testDiv = newElement('div', mainContainter, 'testDiv');
-	newElement('p', testDiv, '', 'testTitle').innerText = test.texts.testTitle[userInfo.language];
+	newElement('p', testDiv, '', 'testTitle').innerText = test.texts.testTitle[userInfo['language']];
 	for(let i = 0; i < test.texts.buttons.length; i++)
 	{
 		const theButton = newElement('div', testDiv, 'image listButton', test.texts.buttons[i][ENGLISH]);
@@ -49,14 +49,14 @@ function start()
 function changeLanguage()
 {
 	for(let i = 0; i < TEXTS.start.money.length; i++)
-		document.getElementById(TEXTS.start.money[i][ENGLISH]).innerHTML = TEXTS.start.money[i][userInfo.language];
+		document.getElementById(TEXTS.start.money[i][ENGLISH]).innerHTML = TEXTS.start.money[i][userInfo['language']];
 	for(let i = 0; i < TEXTS.start.buttons.length; i++)
-		document.getElementById(TEXTS.start.buttons[i][ENGLISH]).childNodes[0].innerText = TEXTS.start.buttons[i][userInfo.language];
+		document.getElementById(TEXTS.start.buttons[i][ENGLISH]).childNodes[0].innerText = TEXTS.start.buttons[i][userInfo['language']];
 
 	//test
-	document.getElementById('testTitle').innerText = test.texts.testTitle[userInfo.language];
+	document.getElementById('testTitle').innerText = test.texts.testTitle[userInfo['language']];
 	for(let i = 0; i < test.texts.buttons.length; i++)
-		document.getElementById(test.texts.buttons[i][ENGLISH]).childNodes[0].innerText = test.texts.buttons[i][userInfo.language];
+		document.getElementById(test.texts.buttons[i][ENGLISH]).childNodes[0].innerText = test.texts.buttons[i][userInfo['language']];
 }
 
 function changeUserIdentify(res)
@@ -79,7 +79,6 @@ function editMoney(_res)
 
 function checkTutorialStatus(_res)
 {
-	sessionStorage.setItem('userID', _res['id'] * 1);
 	switch(_res['tutorial'] * 1)
 	{
 		case 0: showWindow('firstAdoption'); break;

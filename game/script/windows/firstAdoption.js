@@ -17,11 +17,11 @@ function firstAdoption_load()
 function firstAdoption_dialogue(_scene)
 {
 	const textBox = document.getElementById('textBox');
-	textBox.innerText = TEXTS.firstAdoption.dialogue[_scene][userInfo.language] + '\n';
+	textBox.innerText = TEXTS.firstAdoption.dialogue[_scene][userInfo['language']] + '\n';
 	textBox.style.textAlign = _scene == 4 ? 'center' : 'left';
 	const who = TEXTS.firstAdoption.settings[_scene].who;
 	const nameBox = document.getElementById('nameBox');
-	nameBox.innerText = TEXTS.firstAdoption.names[who][userInfo.language];
+	nameBox.innerText = TEXTS.firstAdoption.names[who][userInfo['language']];
 	nameBox.style.marginLeft = who ? 'auto' : '3px';
 	let isThatEnd = false; 
 	switch(TEXTS.firstAdoption.settings[_scene].button)
@@ -53,7 +53,7 @@ function firstAdoption_dialogue(_scene)
 					temporary.element = Math.floor(Math.random() * DRAGON_RANDOM[i].length);
 					firstAdoption_dialogue(_scene + 1);
 				};
-				button.onmouseover = function(){button.innerText = TEXTS.lists.species[i].thename[userInfo.language]}
+				button.onmouseover = function(){button.innerText = TEXTS.lists.species[i].thename[userInfo['language']]}
 				button.onmouseout = function(){button.innerText = ''}
 			}
 		break;
@@ -70,7 +70,7 @@ function firstAdoption_dialogue(_scene)
 			for(let i = 0; i < GENDER.length; i++)
 			{
 				const option = newElement('option', gender);
-				option.innerText = GENDER[i][userInfo.language];
+				option.innerText = GENDER[i][userInfo['language']];
 				option.value = i;
 			}
 			formDiv.innerHTML += '<br>';
@@ -92,7 +92,7 @@ function firstAdoption_dialogue(_scene)
 		case 4:
 			document.getElementById('gameWindow').removeChild(document.getElementById('leftBreeder'));
 			const finish = newElement('button', textBox, 'buttonOk');
-			finish.innerText = TEXTS.firstAdoption.end[userInfo.language];
+			finish.innerText = TEXTS.firstAdoption.end[userInfo['language']];
 			finish.onclick = function()
 			{
 				showWindow('castle');
