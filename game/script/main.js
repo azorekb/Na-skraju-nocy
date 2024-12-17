@@ -13,73 +13,59 @@ function start()
 	newElement('div', settingsBlock, 'post image').onclick = function(){showWindow('messages')};
 	newElement('p', userBox, '', 'username');
 	
-	const moneyBlock = newElement('div', menuBlock, 'moneyBlock')
-	for(let i = 0; i < TEXTS.start.money.length; i++)
-	{
-		const blockDiv = newElement('div', moneyBlock, 'money flexbox space');
-		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH]);
-		newElement('div', blockDiv, '', TEXTS.start.money[i][ENGLISH] + 'Amount');
-	}
+	const moneyBlock = newElement('div', menuBlock, 'moneyBlock');
+
 	const menuButtons = newElement('div', menuBlock, '', 'menuButtons');
 	const mainBlock = newElement('div', mainContainter, 'mainBlock');
 	newElement('img', newElement('div', mainBlock, '', 'logo')).src = FILES.logo;
-	newElement('div', newElement('div', mainBlock, 'mainDiv'), '', 'gameWindow')
+	const gameWindow = newElement('div', newElement('div', mainBlock, 'mainDiv'), '', 'gameWindow');
 
-	for(let i = 0; i < TEXTS.start.buttons.length; i++)
-	{
-		const theButton = newElement('div', menuButtons, 'image listButton button', TEXTS.start.buttons[i][ENGLISH]);
-		theButton.onclick = function(){showWindow(theButton.id)}
-		newElement('p', theButton);
-	}
-
-	//test thingies
-	const testDiv = newElement('div', mainContainter, 'testDiv');
-	newElement('p', testDiv, '', 'testTitle').innerText = test.texts.testTitle[userInfo['language']];
-	for(let i = 0; i < test.texts.buttons.length; i++)
-	{
-		const theButton = newElement('div', testDiv, 'image listButton', test.texts.buttons[i][ENGLISH]);
-		theButton.onclick = function(){showWindow(theButton.id)}
-		newElement('p', theButton);
-	}
-
-	changeLanguage(); 												//edit buttons and money namesfrom JSON depends on language
-	dataBaseConnect(DBC_NAMES.loginFirstData);						//proccess tutorial if not done
+	sendRequest(DBC_NAMES.loginFirstData, null, gameWindow, {money: moneyBlock, buttons: menuButtons});
 }
 
-function changeLanguage()
+function changeLanguage(res, divs)
 {
-	for(let i = 0; i < TEXTS.start.money.length; i++)
-		document.getElementById(TEXTS.start.money[i][ENGLISH]).innerHTML = TEXTS.start.money[i][userInfo['language']];
-	for(let i = 0; i < TEXTS.start.buttons.length; i++)
-		document.getElementById(TEXTS.start.buttons[i][ENGLISH]).childNodes[0].innerText = TEXTS.start.buttons[i][userInfo['language']];
+	if(divs)
+	{
+		for(let i = 0; i < res['money'].length; i++)
+		{
+			const blockDiv = newElement('div', divs.money, 'money flexbox space');
+			newElement('div', blockDiv, '', 'moneyName' + i);
+			newElement('div', blockDiv, '', 'moneyAmount' + i);
+		}
 
-	//test
-	document.getElementById('testTitle').innerText = test.texts.testTitle[userInfo['language']];
-	for(let i = 0; i < test.texts.buttons.length; i++)
-		document.getElementById(test.texts.buttons[i][ENGLISH]).childNodes[0].innerText = test.texts.buttons[i][userInfo['language']];
+		for(let i = 0; i < res['start buttons'].length; i++)
+		{
+			const theButton = newElement('div', divs.buttons, 'image listButton button', 'theMainButton' + i);
+			theButton.onclick = function(){showWindow(res['windows'][i]['name'])}
+			newElement('p', theButton);
+		}	
+	}
+
+	for(let i = 0; i < res['money'].length; i++)
+		document.getElementById('moneyName' + i).innerHTML = res['money'][i]['text'];
+	for(let i = 0; i < res['start buttons'].length; i++)
+		document.getElementById('theMainButton' + i).childNodes[0].innerText = res['start buttons'][i]['text'];
 }
 
 function changeUserIdentify(res)
 {
-	const AVATAR = res ? res['avatar'] : userInfo['avatar'];
-	const USERNAME = res ? res['username'] : userInfo['username'];
-	const NICKNAME = res ? res['nickname'] : userInfo['nickname'];
+	const AVATAR = res['avatar'];
+	const USERNAME = res['username'];
+	const NICKNAME = res['nickname'];
 	document.getElementById('avatar').src = AVATAR ? AVATAR : FILES.defaultAvatar;
 	document.getElementById('username').innerText = NICKNAME ? NICKNAME : USERNAME;
 }
 
-function editMoney(_res)
+function editMoney(money, base)
 {
-	for(let i = 0; i < TEXTS.start.money.length; i++)
-	{
-		const money = TEXTS.start.money[i][ENGLISH];
-		document.getElementById(money + 'Amount').innerHTML = _res[money];
-	}
+	for(let i = 0; i < money.length; i++)
+		document.getElementById('moneyAmount' + i).innerHTML = base['money' + i];
 }
 
 function checkTutorialStatus(_res)
 {
-	switch(_res['tutorial'] * 1)
+	switch(_res * 1)
 	{
 		case 0: showWindow('firstAdoption'); break;
 	}

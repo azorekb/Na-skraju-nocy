@@ -1,52 +1,55 @@
-function castle_load()
+function castle_load(res)
 {
     windowSettings();
     const gameWindow = document.getElementById('gameWindow');
-    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.start.buttons[2][userInfo['language']];
+    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = res['start buttons'][0]['text'];
     
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
-    for(let i = 0; i < TEXTS.lists.buildings.length; i++)
+    for(let i = 0; i < res['building list'].length; i++)
     {
         const building = newElement('div', placesContainer, 'place');
-        building.innerText = TEXTS.lists.buildings[i].building[userInfo['language']];
+        building.innerText = res['building list'][i]['text'];
         building.onclick = function()
         {
-            castle_showBuilding(i);
+            castle_showBuilding(i, res);
         }
     }
 }
 
-function castle_showBuilding(building)
+function castle_showBuilding(building, res)
 {
     showWindow();
     windowSettings();
     const gameWindow = document.getElementById('gameWindow');
-    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = TEXTS.lists.buildings[building].building[userInfo['language']];
+    newElement('p', newElement('div', gameWindow, 'bigName')).innerHTML = res['building list'][building]['text'];
 
     const arrows = newElement('div', gameWindow, 'flexbox');
     newElement('div', arrows, 'left arrow image').onclick = function()
     {
         if(building == 0)
-            castle_showBuilding(TEXTS.lists.buildings.length - 1)
+            castle_showBuilding(res['building list'].length - 1, res);
         else
-            castle_showBuilding(building - 1)
+            castle_showBuilding(building - 1, res);
     };
-    newElement('div', arrows, 'buildingImage image').style.backgroundImage = 'url(' + TEXTS.lists.buildings[building].img + ')';
+    newElement('div', arrows, 'buildingImage image').style.backgroundImage = 'url(img/' + res['buildings'][building]['img'] + '.webp)';
     newElement('div', arrows, 'right arrow image').onclick = function()
     {
-        if(building == TEXTS.lists.buildings.length - 1)
-            castle_showBuilding(0)
+        if(building == res['building list'].length - 1)
+            castle_showBuilding(0, res);
         else
-            castle_showBuilding(building + 1)
+            castle_showBuilding(building + 1, res);
     };
     const placesContainer = newElement('div', gameWindow, 'placesContainer');
-    for(let i = 0; i < TEXTS.lists.buildings[building].rooms.length; i++)
+    for(let i = 0; i < res['rooms list'].length; i++)
     {
-        const room = newElement('div', placesContainer, 'place');
-        room.innerText = TEXTS.lists.buildings[building].rooms[i][userInfo['language']];
-        room.onclick = function()
+        if(res['rooms'][i]['building'] == building)
         {
-            
+            const room = newElement('div', placesContainer, 'place');
+            room.innerText = res['rooms list'][i]['text'];
+            room.onclick = function()
+            {
+                
+            }
         }
     }
 }

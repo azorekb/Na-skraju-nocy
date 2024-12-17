@@ -1,4 +1,4 @@
-function firstAdoption_load()
+function firstAdoption_load(res)
 {
     tutorial = 1;
 	windowSettings(512, 512, FILES.breedersHall);
@@ -11,20 +11,20 @@ function firstAdoption_load()
 	newElement('div', dialogueBox, 'nameBox', 'nameBox');
 	newElement('div', dialogueBox, 'textBox', 'textBox');
 
-    firstAdoption_dialogue(0);
+    firstAdoption_dialogue(0, res);
 }
 
-function firstAdoption_dialogue(_scene)
+function firstAdoption_dialogue(_scene, res)
 {
 	const textBox = document.getElementById('textBox');
-	textBox.innerText = TEXTS.firstAdoption.dialogue[_scene][userInfo['language']] + '\n';
+	textBox.innerText = res['texts'][_scene]['text'].replace('[br]', '\n\n').replace('[n]', '\n') + '\n';
 	textBox.style.textAlign = _scene == 4 ? 'center' : 'left';
-	const who = TEXTS.firstAdoption.settings[_scene].who;
+	const who = res['texts'][_scene]['who'];
 	const nameBox = document.getElementById('nameBox');
-	nameBox.innerText = TEXTS.firstAdoption.names[who][userInfo['language']];
+	nameBox.innerText = res['characters'][who]['text'];
 	nameBox.style.marginLeft = who ? 'auto' : '3px';
 	let isThatEnd = false; 
-	switch(TEXTS.firstAdoption.settings[_scene].button)
+	switch(res['texts'][_scene]['button'] * 1)
 	{
 		case 3: 
 			isThatEnd = true;
@@ -34,11 +34,12 @@ function firstAdoption_dialogue(_scene)
 			button.onclick = isThatEnd ? function()
 			{
 				textBox.innerHTML = '<img src = "' + FILES.loading + '">';
-				dataBaseConnect(DBC_NAMES.addFirstDragon);
+				const DATA = temporary.gender + '\\' + temporary.name + '\\' + temporary.element + '\\' + temporary.dragon;
+				sendRequest(DBC_NAMES.addFirstDragon, textBox, DATA, res);
 			}:
 			function()
 			{
-				firstAdoption_dialogue(_scene + 1)
+				firstAdoption_dialogue(_scene + 1, res)
 			};
 		break;
 		case 1:
@@ -51,9 +52,9 @@ function firstAdoption_dialogue(_scene)
 				{
 					temporary.dragon = i;
 					temporary.element = Math.floor(Math.random() * DRAGON_RANDOM[i].length);
-					firstAdoption_dialogue(_scene + 1);
+					firstAdoption_dialogue(_scene + 1, res);
 				};
-				button.onmouseover = function(){button.innerText = TEXTS.lists.species[i].thename[userInfo['language']]}
+				button.onmouseover = function(){button.innerText = res['species list'][i]['text']}
 				button.onmouseout = function(){button.innerText = ''}
 			}
 		break;
@@ -66,11 +67,10 @@ function firstAdoption_dialogue(_scene)
 			daDragon.style.height = '160px';
 			const formDiv = newElement('div', daBox, 'formDiv');
 			const gender = newElement('select', formDiv, '', 'dragonGender');
-			const GENDER = [['samiec','male',], ['samica', 'female']];
-			for(let i = 0; i < GENDER.length; i++)
+			for(let i = 0; i < 2; i++) //cus 2 genders ]:->
 			{
 				const option = newElement('option', gender);
-				option.innerText = GENDER[i][userInfo['language']];
+				option.innerText = res['remaining'][i + 1]['text'];
 				option.value = i;
 			}
 			formDiv.innerHTML += '<br>';
@@ -85,14 +85,14 @@ function firstAdoption_dialogue(_scene)
 				if(daName.length >= 3 && daName.length <= 30)
 				{
 					temporary.name = daName;
-					firstAdoption_dialogue(_scene + 1);
+					firstAdoption_dialogue(_scene + 1, res);
 				}
 			}
 		break;
 		case 4:
 			document.getElementById('gameWindow').removeChild(document.getElementById('leftBreeder'));
 			const finish = newElement('button', textBox, 'buttonOk');
-			finish.innerText = TEXTS.firstAdoption.end[userInfo['language']];
+			finish.innerText = res['remaining'][0]['text'];
 			finish.onclick = function()
 			{
 				showWindow('castle');

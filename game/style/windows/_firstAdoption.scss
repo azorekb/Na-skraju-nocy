@@ -66,8 +66,12 @@
             background-color: $dialog-buttondragon-background;
             cursor: pointer;
             background-size: cover;
-            color: $dialog-buttondragon-text;
             font-weight: bold;
+
+            &:hover
+            {
+                color: $dialog-buttondragon-text;
+            }
         }
         
         

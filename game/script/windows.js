@@ -12,15 +12,12 @@ function showWindow(_what, _info = null)
 
 	switch(_what)
 	{
-		case 'firstAdoption': firstAdoption_load(); break;
-		case 'wilderness': wilderness_load(); break;
-		case 'town': castle_load(); break;
-		case 'treasury': dataBaseConnect(DBC_NAMES.listOfItems, gameWindow, _info); break;
-		case 'settings': settings_load(); break;
-		case 'dragons': dataBaseConnect(DBC_NAMES.listOfDragons, gameWindow); break;
-		//test
-		case 'usernames\' list': dataBaseConnect('t1', gameWindow); break;
-		case 'all texts and languages': test_texts(); break;
+		case 'firstAdoption': sendRequest(DBC_NAMES.firstAdoptionDialogue, gameWindow); break;
+		case 'dragons': sendRequest(DBC_NAMES.listOfDragons, gameWindow); break;
+		case 'wilderness': sendRequest(DBC_NAMES.wildernessData, gameWindow); break;
+		case 'town': sendRequest(DBC_NAMES.buildingList, gameWindow); break;
+		case 'treasury': sendRequest(DBC_NAMES.listOfItems, gameWindow, _info); break;
+		case 'settings': sendRequest(DBC_NAMES.settingsOptions, gameWindow); break;
 	} 
 }
 
@@ -46,7 +43,7 @@ function windowSettings(_width = 500, _height = 500, _backgroundImage = '', _bac
 	gameWindow.innerHTML = '';
 	gameWindow.style.backgroundImage = 'url(' + _backgroundImage + ')';
 	gameWindow.style.width = typeof(_width) == 'number'? _width + 'px' : _width;
-	gameWindow.style.height = typeof(_height) == 'number'? _height + 'px' : _height + 'px';
+	gameWindow.style.minHeight = typeof(_height) == 'number'? _height + 'px' : _height + 'px';
 	gameWindow.style.backgroundPosition =  _backgroundPosition[0] + 'px ' + _backgroundPosition[1] + 'px';
 	gameWindow.style.position = _position;
 }

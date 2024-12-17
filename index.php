@@ -17,7 +17,8 @@
                     case '1': echo "Wygląda na to, że przysięga została już złożona na podane imię."; break;
                     case '2': echo "Z podanej wioski przybył już jej przedstawiciel. Niestety obowiązuje limit jednego przedstawiciela na wioskę."; break;
                     case '3': echo "Podana wizja jest niepoprawna. Wróć gdy przypomnisz sobie poprawną."; break;
-                    case '4': echo "Zbyt długa nieaktywność. Zaloguj się ponownie"; break;
+                    case '4': echo "Zbyt długa nieaktywność. Zaloguj się ponownie."; break;
+                    case '5': echo "Niepoprawne dane logowania. Spróbuj ponownie."; break;
                 }
                 echo '</p>';
             }

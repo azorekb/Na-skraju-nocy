@@ -256,8 +256,10 @@ sup {
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   background-size: cover;
-  color: #fff;
   font-weight: bold;
+}
+.dialogueBox .textBox .buttonDragon:hover {
+  color: #fff;
 }
 .dialogueBox .textBox button {
   color: #a06501;

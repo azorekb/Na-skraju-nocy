@@ -1,3 +1,21 @@
+class mapObject
+{
+    constructor(img, positionX, positionY, sizeX, sizeY, theFunction, argument, travel)
+    {
+        this.img = img;
+        this.position = [positionX, positionY];
+        this.size = [sizeX, sizeY];
+        this.functionArguments = argument;
+        this.travel = travel;
+        switch(theFunction * 1)
+        {
+            case 0: this.function = showWindow; break;
+            case 1: this.function = wilderness_travel; break;
+        }
+        this.div = null;
+    }
+}
+
 const wilderness_mapDetails = 
 {
     position: [0,0],
@@ -7,32 +25,26 @@ const wilderness_mapDetails =
     mouseMove: false,
     mapSize: [1280,789],
     windowSize: [0,0],
-    objects: 
-    [
-        {
-            img: 'castle',
-            position: [803,321,851,360],
-            function: showWindow,
-            functionArguments: 'town',
-            div: null
-        },
-        {
-            img: 'fswamps',
-            position: [741,264,805,312],
-            function: wilderness_travel,
-            functionArguments: 'fswamps',
-            travel: 1
-        }
-    ],
+    objects: [],
 }
 
-function wilderness_load()
+function wilderness_load(res)
 {
     const gameWindow = document.getElementById('gameWindow');
-    windowSettings(undefined, 370, FILES.wildMap, [-600,-200], 'relative');
+    wilderness_mapDetails.mapSize[0] = res['size'][0]['value'];
+    wilderness_mapDetails.mapSize[1] = res['size'][1]['value'];
+    const mapStartPos = [res['size'][2]['value'], res['size'][3]['value']];
+
+    windowSettings(undefined, 370, FILES.wildMap, [mapStartPos[0], mapStartPos[1]], 'relative');
     newElement('span', gameWindow, 'positionText', 'positionText');
-    for(let i = 0; i < wilderness_mapDetails.objects.length; i++)
+    
+    wilderness_mapDetails.objects.length = 0;
+    for(let i = 0; i < res['objects'].length; i++)
     {
+        const obj = res['objects'][i];
+        const newObject = new mapObject(obj['img'], obj['position_x'], obj['position_y'], obj['size_x'], obj['size_y'], obj['function'], obj['argument'], obj['travel']);
+        wilderness_mapDetails.objects.push(newObject);
+
         const theObject = wilderness_mapDetails.objects[i]
         theObject.div = newElement('div', gameWindow, 'wildObject');
         theObject.div.style.backgroundImage = 'url(img/' + theObject.img + '.webp)';
@@ -43,7 +55,6 @@ function wilderness_load()
     }
     
     gameWindow.onmousedown = function(e){wilderness_mapGrab(e)};
-    // gameWindow.onclick = function(e){wilderness_mapClick()};
     gameWindow.onmousemove = function(e){wilderness_mouseOnMapMove(e)};
 }
 
@@ -51,16 +62,16 @@ function wilderness_showObject(theObject)
 {
     const gameWindow = document.getElementById('gameWindow');
     const mapBorderLeft = -1 * gameWindow.style.backgroundPositionX.slice(0,-2);
-    const mapBorderRight = mapBorderLeft + gameWindow.style.width.slice(0,-2) * 1;
+    const mapBorderRight = mapBorderLeft + gameWindow.offsetWidth;
     const mapBorderTop = -1 * gameWindow.style.backgroundPositionY.slice(0,-2);
-    const mapBorderBottom = mapBorderTop + gameWindow.style.height.slice(0,-2) * 1;
+    const mapBorderBottom = mapBorderTop + gameWindow.offsetHeight;
     
     let objectBGPosX = 0;
     let objectBGPosY = 0;
     let objectPositionX = theObject.position[0] - mapBorderLeft;
     let objectPositionY = theObject.position[1] - mapBorderTop;
     
-    let objectSizeX = theObject.position[2] - theObject.position[0];
+    let objectSizeX = theObject.size[0];
     if(theObject.position[2] > mapBorderRight)
         objectSizeX = mapBorderRight - theObject.position[0];
     if(theObject.position[0] >= mapBorderRight)
@@ -75,7 +86,7 @@ function wilderness_showObject(theObject)
     if(theObject.position[2] <= mapBorderLeft)
         objectSizeX = 0;
     
-    let objectSizeY = theObject.position[3] - theObject.position[1];
+    let objectSizeY = theObject.size[1];
     if(theObject.position[3] > mapBorderBottom)
         objectSizeY = mapBorderBottom - theObject.position[1];
     if(theObject.position[1] >= mapBorderBottom)
@@ -87,6 +98,7 @@ function wilderness_showObject(theObject)
         objectBGPosY = theObject.position[1] - mapBorderTop;
         objectPositionY = 0;
     }
+    
     if(theObject.position[3] <= mapBorderTop)
         objectSizeY = 0;
 
@@ -161,6 +173,11 @@ function wilderness_mapRelease()
 
 function wilderness_travel(which)
 {
+    sendRequest(DBC_NAMES.wildernessTravelData, document.getElementById('gameWindow'), null, which);
+}
+
+function wilderenss_showTravel(which, res)
+{
     showWindow();
     const gameWindow = document.getElementById('gameWindow');
     windowSettings(512, 1050);
@@ -169,20 +186,27 @@ function wilderness_travel(which)
     const container = newElement('div', gameWindow, 'flexbox');
     const form = newElement('div', container, 'travelForm');
     const travelTime = newElement('p', form);
-    travelTime.innerText = TEXTS.wilderness.time[userInfo['language']] + ': 3 ' + TEXTS.wilderness.hours[userInfo['language']];
+
+    let s = 's';
+    let y = 'y';
+    travelTime.innerText = res['remaining'][0]['text'] + ': 3 ' + res['remaining'][1]['text'].replace('[s]', s).replace('[y]', y);
     temporary.time = 3;
     const select = newElement('div', form);
     const watch = newElement('div', container, 'sunwatch');
     const time = newElement('div', watch);
     
     watch.onmousemove = function(e){wilderness_chooseTime(e, this, time)}
-    watch.onclick = function(){wilderness_setTime(travelTime)}
+    watch.onclick = function(){wilderness_setTime(travelTime, res)}
 }
 
-function wilderness_setTime(text)
+function wilderness_setTime(text, res)
 {
     temporary.time = temporary.timechoosing;
-    text.innerText = TEXTS.wilderness.time[userInfo['language']] + ': ' + temporary.time + ' ' + TEXTS.wilderness.hours[userInfo['language']];
+    const half = Math.floor(temporary.time) != temporary.time;
+    const s = temporary.time == 1 ? '' : 's';
+    const y = half || ((temporary.time < 10 || temporary.time > 20) && temporary.time % 10 > 1 && temporary.time % 10 < 5)? 'y' : temporary.time == 1 ? 'a' : '';
+
+    text.innerText = res['remaining'][0]['text'] + ': ' + temporary.time + ' ' + res['remaining'][1]['text'].replace('[s]', s).replace('[y]', y);;
 }
 
 function wilderness_chooseTime(e, watch, text)
@@ -226,7 +250,7 @@ function wilderness_chooseTime(e, watch, text)
         watch.style.backgroundPositionY = (-1 * height) + 'px';
     }
 
-    temporary.timechoosing = Math.floor(time / 2.5) + 3;
+    temporary.timechoosing = time / 2 + 0.5;
 
     text.innerText = temporary.timechoosing;
 }

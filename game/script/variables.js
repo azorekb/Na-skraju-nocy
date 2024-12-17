@@ -12,4 +12,3 @@ const ENGLISH = 1;
 let currentWindow = '';
 let tutorial = 0;
 let temporary = {};
-let userInfo = {}
